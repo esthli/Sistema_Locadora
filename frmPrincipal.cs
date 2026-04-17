@@ -14,7 +14,10 @@ namespace Sistema_Locadora
 
         private void tsbtn_Clientes_Click(object sender, EventArgs e)
         {
-            if (ts_Clientes.Visible == true)
+            frm_Clientes Clientes = new frm_Clientes();
+            Clientes.ShowDialog();
+
+            /*if (ts_Clientes.Visible == true)
             {
                 gb_Clientes.Visible = false;
                 gb_Filmes.Visible = false;
@@ -53,8 +56,15 @@ namespace Sistema_Locadora
                 gb_Filmes.Visible = true;
                ts_Clientes.Visible = true;
             }
-    
+    */
 
+        }
+
+
+        private void tsbtn_Filmes_Click(object sender, EventArgs e)
+        {
+            frm_Filmes filmes = new frm_Filmes();
+            filmes.ShowDialog();
         }
     }
 }
