@@ -21,6 +21,9 @@ namespace Sistema_Locadora
             btn_PesquisarCodGenero.Enabled = false;
             btn_PesquisarCodFilme.Enabled = false;
 
+            // load genres into combo box
+            LoadGeneros();
+
             // list view Buscar Generos
             ltview_BuscarGeneros.View = View.Details;
             ltview_BuscarGeneros.LabelEdit = true;
@@ -40,8 +43,6 @@ namespace Sistema_Locadora
             ltview_BuscarFilme.Columns.Add("ID", 50, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Título", 200, HorizontalAlignment.Left);
 
-
-
             // add optional columns but keep them hidden by default (width = 0)
             ltview_BuscarFilme.Columns.Add("Gênero", 0, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Ano", 0, HorizontalAlignment.Left);
@@ -53,22 +54,36 @@ namespace Sistema_Locadora
         {
             if (tbctrl_Filmes.SelectedTab == tbpg_Filmes)
             {
-                /*
-                try
+                    try
                 {
-                    
-                    //Criar a conexão com o banco de dados
-                    Conexao = new MySqlConnection(data_source);
-                    string query = "INSERT INTO Filme (Titulo, Ano, classificacao_indicativa, id_genero)" +
-                        " VALUES" +
-                        " ('" + txt_TituloFilme.Text + "', '" + msktxt_AnoFilme.Text + "', '" + cbox_ClassificacaoFilme.Text + "', '" + txt_IdGenero.Text + "')";
+                    // Ensure a genre is selected and obtain its id from the bound ValueMember
+                    if (cbox_GeneroFilme == null || cbox_GeneroFilme.SelectedValue == null)
+                    {
+                        MessageBox.Show("Selecione um gênero antes de cadastrar o filme.");
+                        return;
+                    }
 
-                    //Criar o comando SQL para inserir os dados do cliente
+                    if (!int.TryParse(cbox_GeneroFilme.SelectedValue.ToString(), out int id_g))
+                    {
+                        MessageBox.Show("ID do gênero inválido.");
+                        return;
+                    }
+
+                    // Use parameterized INSERT to avoid SQL injection
+                    Conexao = new MySqlConnection(data_source);
+                    string query = "INSERT INTO Filme (Titulo, Ano, classificacao_indicativa, id_genero) " +
+                                   "VALUES (@titulo, @ano, @classificacao, @idgenero)";
+
                     MySqlCommand comando = new MySqlCommand(query, Conexao);
+                    comando.Parameters.AddWithValue("@titulo", txt_TituloFilme.Text);
+                    comando.Parameters.AddWithValue("@ano", msktxt_AnoFilme.Text);
+                    comando.Parameters.AddWithValue("@classificacao", cbox_ClassificacaoFilme.Text);
+                    comando.Parameters.AddWithValue("@idgenero", id_g);
+
                     Conexao.Open();
                     comando.ExecuteNonQuery(); // use ExecuteNonQuery for INSERT
 
-                    MessageBox.Show("Cliente cadastrado com sucesso!");
+                    MessageBox.Show("Filme cadastrado com sucesso!");
                 }
                 catch (Exception ex)
                 {
@@ -79,12 +94,11 @@ namespace Sistema_Locadora
                     // Safe close: avoid NullReferenceException if Conexao is null
                     if (Conexao != null && Conexao.State == ConnectionState.Open)
                         Conexao.Close();
-
-
-
-                }*/
-                MessageBox.Show("Funcionalidade em desenvolvimento.");
-
+                    txt_TituloFilme.Clear();
+                    msktxt_AnoFilme.Clear();
+                    cbox_ClassificacaoFilme.SelectedIndex = -1;
+                    cbox_GeneroFilme.SelectedIndex = -1;
+                }
             }
             else if (tbctrl_Filmes.SelectedTab == tbpg_Genero)
             {
@@ -117,16 +131,10 @@ namespace Sistema_Locadora
                     txt_CodGeneroFilme.Clear();
                     txt_GeneroFilme.Clear();
 
-
-
+                    // refresh combo box after insert
+                    LoadGeneros();
                 }
             }
-
-
-
-
-
-
         }
 
 
@@ -164,6 +172,9 @@ namespace Sistema_Locadora
                         comando.ExecuteNonQuery(); // use ExecuteNonQuery for DELETE
 
                         MessageBox.Show("Gênero deletado com sucesso!");
+
+                        // refresh combo box after delete
+                        LoadGeneros();
                     }
                     else
                     {
@@ -183,7 +194,6 @@ namespace Sistema_Locadora
 
                     txt_CodGeneroFilme.Clear();
                     txt_GeneroFilme.Clear();
-
 
 
 
@@ -420,13 +430,6 @@ namespace Sistema_Locadora
                 ltview_BuscarFilme.Columns[index].Width = visible ? width : 0;
         }
 
-        private void btn_EnviarFilmes_Click(object sender, EventArgs e)
-        {
-            SetColumnVisibility(3, ckbox_AnoFilme.Checked, 110); // Telefone column
-            SetColumnVisibility(4, ckbox_Genero.Checked, 150);      // Rua column
-            SetColumnVisibility(5, ckbox_ClassificacaoFilme.Checked, 120);   // Bairro column
-        }
-
         private void tsbtn_saveFilme_Click(object sender, EventArgs e)
         {
             if (tbctrl_Filmes.SelectedTab == tbpg_Filmes)
@@ -449,6 +452,9 @@ namespace Sistema_Locadora
 
                     MessageBox.Show("Genero atualizado com sucesso!");
 
+                    // refresh combo box after update
+                    LoadGeneros();
+
 
                 }
                 catch (Exception ex)
@@ -462,10 +468,41 @@ namespace Sistema_Locadora
 
                     txt_GeneroFilme.Clear();
                     txt_CodGeneroFilme.Clear();
-
-
-
                 }
+            }
+        }
+
+        private void btn_EnviarFilmes_Click_1(object sender, EventArgs e)
+        {
+            SetColumnVisibility(3, ckbox_AnoFilme.Checked, 110); // Ano column
+            SetColumnVisibility(4, ckbox_Genero.Checked, 150);      // Genero column
+            SetColumnVisibility(5, ckbox_ClassificacaoFilme.Checked, 120);   // Classificacao column
+        }
+
+        // Loads genres from database into cbox_GeneroFilme
+        private void LoadGeneros()
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(data_source))
+                using (var adapter = new MySqlDataAdapter("SELECT id_genero, nome_genero FROM Genero ORDER BY nome_genero", conn))
+                {
+                    var dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    // Ensure combobox exists (Designer name must match)
+                    if (cbox_GeneroFilme != null)
+                    {
+                        cbox_GeneroFilme.DisplayMember = "nome_genero";
+                        cbox_GeneroFilme.ValueMember = "id_genero";
+                        cbox_GeneroFilme.DataSource = dt;
+                        cbox_GeneroFilme.SelectedIndex = -1; // no selection by default
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao carregar gêneros: " + ex.Message);
             }
         }
     }
