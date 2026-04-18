@@ -25,8 +25,9 @@ namespace Sistema_Locadora
             ltview_BuscarClientes.FullRowSelect = true;
             ltview_BuscarClientes.GridLines = true;
 
+            ltview_BuscarClientes.Columns.Add("ID", 50, HorizontalAlignment.Left);
             ltview_BuscarClientes.Columns.Add("Nome", 200, HorizontalAlignment.Left);
-            ltview_BuscarClientes.Columns.Add("cpf", 200, HorizontalAlignment.Left);
+            ltview_BuscarClientes.Columns.Add("cpf", 115, HorizontalAlignment.Left);
         }
 
         private void tsbtn_addCliente_Click(object sender, EventArgs e)
@@ -62,7 +63,7 @@ namespace Sistema_Locadora
                     Conexao.Close();
 
                 txt_Bairro.Clear();
-                txt_CEP.Clear();
+                msktxt_CEP.Clear();
                 txt_Cidade.Clear();
                 txt_Rua.Clear();
                 txt_nomeCliente.Clear();
@@ -102,7 +103,7 @@ namespace Sistema_Locadora
                 //Criar a conexão com o banco de dados
                 Conexao = new MySqlConnection(data_source);
                 // MySQL uses LIKE (not iLIKE). Also consider parameterized queries to avoid SQL injection.
-                string query = "SELECT nome, cpf FROM Cliente " +
+                string query = "SELECT id_cliente, nome, cpf FROM Cliente " +
                     "WHERE nome LIKE '%" + txt_BuscaCliente.Text + "%'";
 
                 Conexao.Open();
@@ -117,8 +118,11 @@ namespace Sistema_Locadora
                     while (reader.Read())
                     {
                         string[] row = {
-                            reader.GetString(0),
-                            reader.GetString(1) };
+                            Convert.ToString(reader.GetInt32(0)),
+                            reader.GetString(1),
+                            reader.GetString(2)
+                            
+                        };
 
                         var linhalista = new ListViewItem(row);
                         ltview_BuscarClientes.Items.Add(linhalista);
@@ -169,6 +173,31 @@ namespace Sistema_Locadora
 
         private void msk_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
+
+        }
+
+        private void btn_EnviarClientes_Click(object sender, EventArgs e)
+        {
+            if(ckbox_Telefone.Checked){
+
+            }
+            if (ckbox_Telefone.Checked) {
+
+            }
+
+            if(ckbox_Rua.Checked){
+
+            }
+             if(ckbox_Bairro.Checked){
+
+            }
+             if(ckbox_Cidade.Checked){
+
+            }
+
+            if (ckbox_CEP.Checked){
+
+            }
 
         }
     }

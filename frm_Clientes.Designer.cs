@@ -31,7 +31,7 @@ namespace Sistema_Locadora
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Clientes));
             gb_Clientes = new GroupBox();
-            txt_CEP = new TextBox();
+            msktxt_CEP = new MaskedTextBox();
             txt_Cidade = new TextBox();
             txt_Bairro = new TextBox();
             txt_Rua = new TextBox();
@@ -67,7 +67,13 @@ namespace Sistema_Locadora
             label10 = new Label();
             txt_BuscaCliente = new TextBox();
             ltview_BuscarClientes = new ListView();
-            msktxt_CEP = new MaskedTextBox();
+            ckbox_Telefone = new CheckBox();
+            ckbox_Rua = new CheckBox();
+            ckbox_Bairro = new CheckBox();
+            ckbox_Cidade = new CheckBox();
+            ckbox_CEP = new CheckBox();
+            label11 = new Label();
+            btn_EnviarClientes = new Button();
             gb_Clientes.SuspendLayout();
             ts_Clientes.SuspendLayout();
             SuspendLayout();
@@ -95,16 +101,19 @@ namespace Sistema_Locadora
             gb_Clientes.Controls.Add(label3);
             gb_Clientes.Location = new Point(12, 30);
             gb_Clientes.Name = "gb_Clientes";
-            gb_Clientes.Size = new Size(854, 319);
+            gb_Clientes.Size = new Size(690, 319);
             gb_Clientes.TabIndex = 11;
             gb_Clientes.TabStop = false;
             // 
-            // txt_CEP
+            // msktxt_CEP
             // 
-            txt_CEP.Location = new Point(576, 414);
-            txt_CEP.Name = "txt_CEP";
-            txt_CEP.Size = new Size(136, 27);
-            txt_CEP.TabIndex = 24;
+            msktxt_CEP.Location = new Point(580, 103);
+            msktxt_CEP.Mask = "00000-000";
+            msktxt_CEP.Name = "msktxt_CEP";
+            msktxt_CEP.Size = new Size(80, 27);
+            msktxt_CEP.TabIndex = 18;
+            msktxt_CEP.TextAlign = HorizontalAlignment.Center;
+            msktxt_CEP.MaskInputRejected += msk_MaskInputRejected;
             // 
             // txt_Cidade
             // 
@@ -130,7 +139,7 @@ namespace Sistema_Locadora
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(666, 220);
+            label9.Location = new Point(540, 107);
             label9.Name = "label9";
             label9.Size = new Size(34, 20);
             label9.TabIndex = 20;
@@ -165,11 +174,12 @@ namespace Sistema_Locadora
             // 
             // msktxt_Telefone
             // 
-            msktxt_Telefone.Location = new Point(409, 103);
+            msktxt_Telefone.Location = new Point(361, 103);
             msktxt_Telefone.Mask = "(99) 00000-0000";
             msktxt_Telefone.Name = "msktxt_Telefone";
-            msktxt_Telefone.Size = new Size(101, 27);
+            msktxt_Telefone.Size = new Size(125, 27);
             msktxt_Telefone.TabIndex = 16;
+            msktxt_Telefone.TextAlign = HorizontalAlignment.Center;
             // 
             // txt_Endereco
             // 
@@ -190,7 +200,7 @@ namespace Sistema_Locadora
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(318, 106);
+            label4.Location = new Point(289, 106);
             label4.Name = "label4";
             label4.Size = new Size(66, 20);
             label4.TabIndex = 13;
@@ -226,8 +236,9 @@ namespace Sistema_Locadora
             msktxt_CPF.Location = new Point(105, 103);
             msktxt_CPF.Mask = "000\\.000\\.000-00";
             msktxt_CPF.Name = "msktxt_CPF";
-            msktxt_CPF.Size = new Size(94, 27);
+            msktxt_CPF.Size = new Size(113, 27);
             msktxt_CPF.TabIndex = 9;
+            msktxt_CPF.TextAlign = HorizontalAlignment.Center;
             msktxt_CPF.MaskInputRejected += msktxt_CPF_MaskInputRejected;
             // 
             // label2
@@ -254,7 +265,7 @@ namespace Sistema_Locadora
             ts_Clientes.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, toolStripTextBox1, toolStripLabel1, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addCliente, tsbtn_delCliente, tsbtn_saveCliente });
             ts_Clientes.Location = new Point(0, 0);
             ts_Clientes.Name = "ts_Clientes";
-            ts_Clientes.Size = new Size(1416, 37);
+            ts_Clientes.Size = new Size(721, 37);
             ts_Clientes.TabIndex = 12;
             ts_Clientes.Text = "toolStrip2";
             // 
@@ -357,9 +368,9 @@ namespace Sistema_Locadora
             // 
             // btn_PesquisarCliente
             // 
-            btn_PesquisarCliente.Location = new Point(1277, 62);
+            btn_PesquisarCliente.Location = new Point(582, 399);
             btn_PesquisarCliente.Name = "btn_PesquisarCliente";
-            btn_PesquisarCliente.Size = new Size(107, 27);
+            btn_PesquisarCliente.Size = new Size(120, 27);
             btn_PesquisarCliente.TabIndex = 13;
             btn_PesquisarCliente.Text = "Pesquisar";
             btn_PesquisarCliente.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -369,45 +380,111 @@ namespace Sistema_Locadora
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(904, 37);
+            label10.Location = new Point(16, 374);
             label10.Name = "label10";
-            label10.Size = new Size(102, 20);
+            label10.Size = new Size(105, 20);
             label10.TabIndex = 14;
-            label10.Text = "Buscar Cliente";
+            label10.Text = "Buscar Cliente:";
             label10.Click += label10_Click;
             // 
             // txt_BuscaCliente
             // 
-            txt_BuscaCliente.Location = new Point(904, 62);
+            txt_BuscaCliente.Location = new Point(16, 399);
             txt_BuscaCliente.Name = "txt_BuscaCliente";
-            txt_BuscaCliente.Size = new Size(366, 27);
+            txt_BuscaCliente.Size = new Size(560, 27);
             txt_BuscaCliente.TabIndex = 15;
             txt_BuscaCliente.TextChanged += txt_BuscaCliente_TextChanged;
             // 
             // ltview_BuscarClientes
             // 
-            ltview_BuscarClientes.Location = new Point(904, 99);
+            ltview_BuscarClientes.Location = new Point(16, 436);
             ltview_BuscarClientes.Name = "ltview_BuscarClientes";
-            ltview_BuscarClientes.Size = new Size(480, 250);
+            ltview_BuscarClientes.Size = new Size(686, 250);
             ltview_BuscarClientes.TabIndex = 17;
             ltview_BuscarClientes.UseCompatibleStateImageBehavior = false;
             // 
-            // msktxt_CEP
+            // ckbox_Telefone
             // 
-            msktxt_CEP.Location = new Point(706, 216);
-            msktxt_CEP.Mask = "00000-000";
-            msktxt_CEP.Name = "msktxt_CEP";
-            msktxt_CEP.Size = new Size(64, 27);
-            msktxt_CEP.TabIndex = 18;
-            msktxt_CEP.MaskInputRejected += msk_MaskInputRejected;
+            ckbox_Telefone.AutoSize = true;
+            ckbox_Telefone.Location = new Point(21, 712);
+            ckbox_Telefone.Name = "ckbox_Telefone";
+            ckbox_Telefone.Size = new Size(88, 24);
+            ckbox_Telefone.TabIndex = 18;
+            ckbox_Telefone.Text = "Telefone";
+            ckbox_Telefone.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_Rua
+            // 
+            ckbox_Rua.AutoSize = true;
+            ckbox_Rua.Location = new Point(115, 712);
+            ckbox_Rua.Name = "ckbox_Rua";
+            ckbox_Rua.Size = new Size(56, 24);
+            ckbox_Rua.TabIndex = 19;
+            ckbox_Rua.Text = "Rua";
+            ckbox_Rua.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_Bairro
+            // 
+            ckbox_Bairro.AutoSize = true;
+            ckbox_Bairro.Location = new Point(177, 712);
+            ckbox_Bairro.Name = "ckbox_Bairro";
+            ckbox_Bairro.Size = new Size(71, 24);
+            ckbox_Bairro.TabIndex = 20;
+            ckbox_Bairro.Text = "Bairro";
+            ckbox_Bairro.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_Cidade
+            // 
+            ckbox_Cidade.AutoSize = true;
+            ckbox_Cidade.Location = new Point(254, 712);
+            ckbox_Cidade.Name = "ckbox_Cidade";
+            ckbox_Cidade.Size = new Size(78, 24);
+            ckbox_Cidade.TabIndex = 21;
+            ckbox_Cidade.Text = "Cidade";
+            ckbox_Cidade.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_CEP
+            // 
+            ckbox_CEP.AutoSize = true;
+            ckbox_CEP.Location = new Point(338, 712);
+            ckbox_CEP.Name = "ckbox_CEP";
+            ckbox_CEP.Size = new Size(56, 24);
+            ckbox_CEP.TabIndex = 22;
+            ckbox_CEP.Text = "CEP";
+            ckbox_CEP.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(12, 689);
+            label11.Name = "label11";
+            label11.Size = new Size(63, 20);
+            label11.TabIndex = 23;
+            label11.Text = "Mostrar:";
+            // 
+            // btn_EnviarClientes
+            // 
+            btn_EnviarClientes.Location = new Point(400, 709);
+            btn_EnviarClientes.Name = "btn_EnviarClientes";
+            btn_EnviarClientes.Size = new Size(94, 29);
+            btn_EnviarClientes.TabIndex = 24;
+            btn_EnviarClientes.Text = "Enviar";
+            btn_EnviarClientes.UseVisualStyleBackColor = true;
+            btn_EnviarClientes.Click += btn_EnviarClientes_Click;
             // 
             // frm_Clientes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1416, 759);
+            ClientSize = new Size(721, 741);
+            Controls.Add(btn_EnviarClientes);
+            Controls.Add(label11);
+            Controls.Add(ckbox_CEP);
+            Controls.Add(ckbox_Cidade);
+            Controls.Add(ckbox_Bairro);
+            Controls.Add(ckbox_Rua);
+            Controls.Add(ckbox_Telefone);
             Controls.Add(ltview_BuscarClientes);
-            Controls.Add(txt_CEP);
             Controls.Add(txt_BuscaCliente);
             Controls.Add(label10);
             Controls.Add(btn_PesquisarCliente);
@@ -432,7 +509,6 @@ namespace Sistema_Locadora
         #endregion
 
         private GroupBox gb_Clientes;
-        private TextBox txt_CEP;
         private TextBox txt_Cidade;
         private TextBox txt_Bairro;
         private TextBox txt_Rua;
@@ -469,5 +545,12 @@ namespace Sistema_Locadora
         private TextBox txt_BuscaCliente;
         private ListView ltview_BuscarClientes;
         private MaskedTextBox msktxt_CEP;
+        private CheckBox ckbox_Telefone;
+        private CheckBox ckbox_Rua;
+        private CheckBox ckbox_Bairro;
+        private CheckBox ckbox_Cidade;
+        private CheckBox ckbox_CEP;
+        private Label label11;
+        private Button btn_EnviarClientes;
     }
 }
