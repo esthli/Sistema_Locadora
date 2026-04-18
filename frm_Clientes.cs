@@ -1,13 +1,15 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Sistema_Locadora
 {
@@ -76,7 +78,7 @@ namespace Sistema_Locadora
                 txt_nomeCliente.Clear();
                 msktxt_CPF.Clear();
                 msktxt_Telefone.Clear();
-                txt_Endereco.Clear();
+
             }
         }
 
@@ -157,14 +159,20 @@ namespace Sistema_Locadora
         {
             try
             {
-                /*
+
                 //Criar a conexão com o banco de dados
                 Conexao = new MySqlConnection(data_source);
                 // MySQL uses LIKE (not iLIKE). Also consider parameterized queries to avoid SQL injection.
                 string query = "DELETE FROM Cliente " +
-                    "WHERE nome LIKE '%" + txt_BuscaCliente.Text + "%'";
+                    "WHERE id_cliente = " + Convert.ToInt32(txt_codCliente.Text);
 
-                Conexao.Open();*/
+                Conexao.Open();
+
+                MySqlCommand comando = new MySqlCommand(query, Conexao);
+                comando.ExecuteNonQuery(); // use ExecuteNonQuery for DELETE
+
+                MessageBox.Show("Cliente deletado com sucesso!");
+
             }
             catch (Exception ex)
             {
@@ -174,6 +182,18 @@ namespace Sistema_Locadora
             {
                 if (Conexao != null && Conexao.State == ConnectionState.Open)
                     Conexao.Close();
+
+
+
+                txt_codCliente.Clear();
+                txt_nomeCliente.Clear();
+                msktxt_CPF.Clear();
+                msktxt_CEP.Clear();
+                msktxt_Telefone.Clear();
+                txt_Rua.Clear();
+                txt_Bairro.Clear();
+                txt_Cidade.Clear();
+
             }
         }
 
@@ -215,7 +235,7 @@ namespace Sistema_Locadora
                 msktxt_CPF.ReadOnly = true;
                 msktxt_Telefone.ReadOnly = true;
                 txt_nomeCliente.ReadOnly = true;
-                txt_Endereco.ReadOnly = true;
+
                 txt_Rua.ReadOnly = true;
                 btn_PesquisarCodCliente.Enabled = true;
 
@@ -229,7 +249,7 @@ namespace Sistema_Locadora
                 msktxt_CPF.ReadOnly = false;
                 msktxt_Telefone.ReadOnly = false;
                 txt_nomeCliente.ReadOnly = false;
-                txt_Endereco.ReadOnly = false;
+
                 txt_Rua.ReadOnly = false;
                 btn_PesquisarCodCliente.Enabled = false;
 
@@ -238,15 +258,45 @@ namespace Sistema_Locadora
 
         private void btn_PesquisarCodCliente_Click(object sender, EventArgs e)
         {
+            if (!int.TryParse(txt_codCliente.Text, out int id))
+            {
+                MessageBox.Show("Informe um ID válido.");
+                return;
+            }
+
             try
             {
-                Conexao = new MySqlConnection(data_source);
-                string query = "SELECT * FROM Cliente " +
-                    "WHERE id_cliente = " + Convert.ToInt32(txt_codCliente.Text);
+                using (Conexao = new MySqlConnection(data_source))
+                using (var comando = new MySqlCommand(
+                    "SELECT id_cliente, Nome, CPF, Telefone, Rua, Bairro, Cidade, CEP FROM Cliente WHERE id_cliente = @id",
+                    Conexao))
 
-                Conexao.Open();
-                MySqlCommand comando = new MySqlCommand(query, Conexao);
-                
+                {
+                    comando.Parameters.AddWithValue("@id", id);
+                    Conexao.Open();
+
+                    using (var reader = comando.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Map DB columns to the form controls (adjust names if your DB uses different column names)
+                            txt_codCliente.Text = reader["id_cliente"]?.ToString() ?? "";
+                            txt_nomeCliente.Text = reader["Nome"]?.ToString() ?? "";
+                            msktxt_CPF.Text = reader["CPF"]?.ToString() ?? "";
+                            msktxt_Telefone.Text = reader["Telefone"]?.ToString() ?? "";
+                            txt_Rua.Text = reader["Rua"]?.ToString() ?? "";
+                            txt_Bairro.Text = reader["Bairro"]?.ToString() ?? "";
+                            txt_Cidade.Text = reader["Cidade"]?.ToString() ?? "";
+                            msktxt_CEP.Text = reader["CEP"]?.ToString() ?? "";
+
+                            tstxt_IdCliente.Text = reader["id_cliente"]?.ToString() ?? "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cliente não encontrado para o ID informado.");
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -257,6 +307,69 @@ namespace Sistema_Locadora
                 if (Conexao != null && Conexao.State == ConnectionState.Open)
                     Conexao.Close();
             }
+        }
+
+
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsbtn_saveCliente_Click(object sender, EventArgs e)
+        {
+            string trocarNumero = msktxt_Telefone.Text.Replace("(", "").Replace(")", "").Replace("-", "");
+            string trocarCpf = msktxt_CPF.Text.Replace("-", "").Replace(".", "");
+            string trocarCEP = msktxt_CEP.Text.Replace("-", "");
+            try
+            {
+                //Criar a conexão com o banco de dados
+                Conexao = new MySqlConnection(data_source);
+                // MySQL uses LIKE (not iLIKE). Also consider parameterized queries to avoid SQL injection.
+                string query = "UPDATE Cliente" +
+                    " SET " +
+                    "nome = '" + txt_nomeCliente.Text + "', CPF = '" + trocarCpf + "', Telefone = '" + trocarNumero + "', Rua = '" + txt_Rua.Text + "', Bairro = '" + txt_Bairro.Text + "', Cidade = '" + txt_Cidade.Text + "', CEP = '" + trocarCEP + "'" +
+                    "WHERE id_cliente = " + Convert.ToInt32(txt_codCliente.Text);
+                Conexao.Open();
+
+                MySqlCommand comando = new MySqlCommand(query, Conexao);
+                comando.ExecuteNonQuery();
+
+                MessageBox.Show("Cliente atualizado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                if (Conexao != null && Conexao.State == ConnectionState.Open)
+                    Conexao.Close();
+            }
+        }
+
+        private void btn_LimparClientes_Click(object sender, EventArgs e)
+        {
+            txt_codCliente.Clear();
+            txt_nomeCliente.Clear();
+            msktxt_CPF.Clear();
+            msktxt_Telefone.Clear();
+            txt_Rua.Clear();
+            txt_Bairro.Clear();
+            txt_Cidade.Clear();
+            msktxt_CEP.Clear();
+
+        }
+
+        private void btn_PesquisarCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            /*
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                btn_PesquisarCliente_Click(sender, e);
+                e.Handled = true; // prevent the beep sound on Enter
+            }*/
+
         }
     }
 }

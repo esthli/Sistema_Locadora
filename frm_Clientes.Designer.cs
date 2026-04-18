@@ -31,6 +31,7 @@ namespace Sistema_Locadora
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Clientes));
             gb_Clientes = new GroupBox();
+            btn_LimparClientes = new Button();
             btn_PesquisarCodCliente = new Button();
             ckbox_CodCliente = new CheckBox();
             msktxt_CEP = new MaskedTextBox();
@@ -42,8 +43,6 @@ namespace Sistema_Locadora
             label7 = new Label();
             label6 = new Label();
             msktxt_Telefone = new MaskedTextBox();
-            txt_Endereco = new TextBox();
-            label5 = new Label();
             label4 = new Label();
             txt_codCliente = new TextBox();
             txt_nomeCliente = new TextBox();
@@ -56,7 +55,7 @@ namespace Sistema_Locadora
             tsbtn_inicio = new ToolStripButton();
             tsbtn_voltar = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
-            toolStripTextBox1 = new ToolStripTextBox();
+            tstxt_IdCliente = new ToolStripTextBox();
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator5 = new ToolStripSeparator();
             tsbtn_frente = new ToolStripButton();
@@ -83,6 +82,7 @@ namespace Sistema_Locadora
             // gb_Clientes
             // 
             gb_Clientes.BackColor = SystemColors.ActiveCaption;
+            gb_Clientes.Controls.Add(btn_LimparClientes);
             gb_Clientes.Controls.Add(btn_PesquisarCodCliente);
             gb_Clientes.Controls.Add(ckbox_CodCliente);
             gb_Clientes.Controls.Add(msktxt_CEP);
@@ -94,8 +94,6 @@ namespace Sistema_Locadora
             gb_Clientes.Controls.Add(label7);
             gb_Clientes.Controls.Add(label6);
             gb_Clientes.Controls.Add(msktxt_Telefone);
-            gb_Clientes.Controls.Add(txt_Endereco);
-            gb_Clientes.Controls.Add(label5);
             gb_Clientes.Controls.Add(label4);
             gb_Clientes.Controls.Add(txt_codCliente);
             gb_Clientes.Controls.Add(txt_nomeCliente);
@@ -105,9 +103,19 @@ namespace Sistema_Locadora
             gb_Clientes.Controls.Add(label3);
             gb_Clientes.Location = new Point(12, 30);
             gb_Clientes.Name = "gb_Clientes";
-            gb_Clientes.Size = new Size(690, 319);
+            gb_Clientes.Size = new Size(690, 251);
             gb_Clientes.TabIndex = 11;
             gb_Clientes.TabStop = false;
+            // 
+            // btn_LimparClientes
+            // 
+            btn_LimparClientes.Location = new Point(566, 29);
+            btn_LimparClientes.Name = "btn_LimparClientes";
+            btn_LimparClientes.Size = new Size(94, 29);
+            btn_LimparClientes.TabIndex = 26;
+            btn_LimparClientes.Text = "Limpar";
+            btn_LimparClientes.UseVisualStyleBackColor = true;
+            btn_LimparClientes.Click += btn_LimparClientes_Click;
             // 
             // btn_PesquisarCodCliente
             // 
@@ -145,21 +153,21 @@ namespace Sistema_Locadora
             // 
             // txt_Cidade
             // 
-            txt_Cidade.Location = new Point(105, 249);
+            txt_Cidade.Location = new Point(105, 205);
             txt_Cidade.Name = "txt_Cidade";
             txt_Cidade.Size = new Size(555, 27);
             txt_Cidade.TabIndex = 23;
             // 
             // txt_Bairro
             // 
-            txt_Bairro.Location = new Point(105, 213);
+            txt_Bairro.Location = new Point(105, 169);
             txt_Bairro.Name = "txt_Bairro";
             txt_Bairro.Size = new Size(555, 27);
             txt_Bairro.TabIndex = 22;
             // 
             // txt_Rua
             // 
-            txt_Rua.Location = new Point(105, 180);
+            txt_Rua.Location = new Point(105, 136);
             txt_Rua.Name = "txt_Rua";
             txt_Rua.Size = new Size(555, 27);
             txt_Rua.TabIndex = 21;
@@ -178,7 +186,7 @@ namespace Sistema_Locadora
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label8.Location = new Point(22, 252);
+            label8.Location = new Point(22, 208);
             label8.Name = "label8";
             label8.Size = new Size(73, 22);
             label8.TabIndex = 19;
@@ -188,7 +196,7 @@ namespace Sistema_Locadora
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label7.Location = new Point(30, 216);
+            label7.Location = new Point(30, 172);
             label7.Name = "label7";
             label7.Size = new Size(64, 22);
             label7.TabIndex = 18;
@@ -198,7 +206,7 @@ namespace Sistema_Locadora
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label6.Location = new Point(46, 183);
+            label6.Location = new Point(46, 139);
             label6.Name = "label6";
             label6.Size = new Size(46, 22);
             label6.TabIndex = 17;
@@ -212,23 +220,6 @@ namespace Sistema_Locadora
             msktxt_Telefone.Size = new Size(125, 27);
             msktxt_Telefone.TabIndex = 16;
             msktxt_Telefone.TextAlign = HorizontalAlignment.Center;
-            // 
-            // txt_Endereco
-            // 
-            txt_Endereco.Location = new Point(105, 141);
-            txt_Endereco.Name = "txt_Endereco";
-            txt_Endereco.Size = new Size(555, 27);
-            txt_Endereco.TabIndex = 15;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label5.Location = new Point(9, 144);
-            label5.Name = "label5";
-            label5.Size = new Size(95, 22);
-            label5.TabIndex = 14;
-            label5.Text = "Endereço";
             // 
             // label4
             // 
@@ -299,7 +290,7 @@ namespace Sistema_Locadora
             // ts_Clientes
             // 
             ts_Clientes.ImageScalingSize = new Size(30, 30);
-            ts_Clientes.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, toolStripTextBox1, toolStripLabel1, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addCliente, tsbtn_delCliente, tsbtn_saveCliente });
+            ts_Clientes.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, tstxt_IdCliente, toolStripLabel1, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addCliente, tsbtn_delCliente, tsbtn_saveCliente });
             ts_Clientes.Location = new Point(0, 0);
             ts_Clientes.Name = "ts_Clientes";
             ts_Clientes.Size = new Size(721, 37);
@@ -334,11 +325,12 @@ namespace Sistema_Locadora
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Size = new Size(6, 37);
             // 
-            // toolStripTextBox1
+            // tstxt_IdCliente
             // 
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.ReadOnly = true;
-            toolStripTextBox1.Size = new Size(100, 37);
+            tstxt_IdCliente.Name = "tstxt_IdCliente";
+            tstxt_IdCliente.ReadOnly = true;
+            tstxt_IdCliente.Size = new Size(100, 37);
+            tstxt_IdCliente.Click += toolStripTextBox1_Click;
             // 
             // toolStripLabel1
             // 
@@ -402,6 +394,7 @@ namespace Sistema_Locadora
             tsbtn_saveCliente.Name = "tsbtn_saveCliente";
             tsbtn_saveCliente.Size = new Size(34, 34);
             tsbtn_saveCliente.Text = "Salvar Cliente";
+            tsbtn_saveCliente.Click += tsbtn_saveCliente_Click;
             // 
             // btn_PesquisarCliente
             // 
@@ -409,7 +402,7 @@ namespace Sistema_Locadora
             btn_PesquisarCliente.FlatStyle = FlatStyle.System;
             btn_PesquisarCliente.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_PesquisarCliente.ForeColor = Color.DarkGray;
-            btn_PesquisarCliente.Location = new Point(582, 399);
+            btn_PesquisarCliente.Location = new Point(578, 321);
             btn_PesquisarCliente.Name = "btn_PesquisarCliente";
             btn_PesquisarCliente.Size = new Size(120, 27);
             btn_PesquisarCliente.TabIndex = 13;
@@ -417,12 +410,13 @@ namespace Sistema_Locadora
             btn_PesquisarCliente.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_PesquisarCliente.UseVisualStyleBackColor = false;
             btn_PesquisarCliente.Click += btn_PesquisarCliente_Click;
+            btn_PesquisarCliente.KeyPress += btn_PesquisarCliente_KeyPress;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label10.Location = new Point(16, 371);
+            label10.Location = new Point(12, 293);
             label10.Name = "label10";
             label10.Size = new Size(147, 22);
             label10.TabIndex = 14;
@@ -431,7 +425,7 @@ namespace Sistema_Locadora
             // 
             // txt_BuscaCliente
             // 
-            txt_BuscaCliente.Location = new Point(16, 399);
+            txt_BuscaCliente.Location = new Point(12, 321);
             txt_BuscaCliente.Name = "txt_BuscaCliente";
             txt_BuscaCliente.Size = new Size(560, 27);
             txt_BuscaCliente.TabIndex = 15;
@@ -439,7 +433,7 @@ namespace Sistema_Locadora
             // 
             // ltview_BuscarClientes
             // 
-            ltview_BuscarClientes.Location = new Point(16, 436);
+            ltview_BuscarClientes.Location = new Point(12, 358);
             ltview_BuscarClientes.Name = "ltview_BuscarClientes";
             ltview_BuscarClientes.Size = new Size(686, 250);
             ltview_BuscarClientes.TabIndex = 17;
@@ -448,7 +442,7 @@ namespace Sistema_Locadora
             // ckbox_Telefone
             // 
             ckbox_Telefone.AutoSize = true;
-            ckbox_Telefone.Location = new Point(21, 712);
+            ckbox_Telefone.Location = new Point(25, 639);
             ckbox_Telefone.Name = "ckbox_Telefone";
             ckbox_Telefone.Size = new Size(88, 24);
             ckbox_Telefone.TabIndex = 18;
@@ -458,7 +452,7 @@ namespace Sistema_Locadora
             // ckbox_Rua
             // 
             ckbox_Rua.AutoSize = true;
-            ckbox_Rua.Location = new Point(115, 712);
+            ckbox_Rua.Location = new Point(119, 639);
             ckbox_Rua.Name = "ckbox_Rua";
             ckbox_Rua.Size = new Size(56, 24);
             ckbox_Rua.TabIndex = 19;
@@ -468,7 +462,7 @@ namespace Sistema_Locadora
             // ckbox_Bairro
             // 
             ckbox_Bairro.AutoSize = true;
-            ckbox_Bairro.Location = new Point(177, 712);
+            ckbox_Bairro.Location = new Point(181, 639);
             ckbox_Bairro.Name = "ckbox_Bairro";
             ckbox_Bairro.Size = new Size(71, 24);
             ckbox_Bairro.TabIndex = 20;
@@ -478,7 +472,7 @@ namespace Sistema_Locadora
             // ckbox_Cidade
             // 
             ckbox_Cidade.AutoSize = true;
-            ckbox_Cidade.Location = new Point(254, 712);
+            ckbox_Cidade.Location = new Point(258, 639);
             ckbox_Cidade.Name = "ckbox_Cidade";
             ckbox_Cidade.Size = new Size(78, 24);
             ckbox_Cidade.TabIndex = 21;
@@ -488,7 +482,7 @@ namespace Sistema_Locadora
             // ckbox_CEP
             // 
             ckbox_CEP.AutoSize = true;
-            ckbox_CEP.Location = new Point(338, 712);
+            ckbox_CEP.Location = new Point(342, 639);
             ckbox_CEP.Name = "ckbox_CEP";
             ckbox_CEP.Size = new Size(56, 24);
             ckbox_CEP.TabIndex = 22;
@@ -498,7 +492,7 @@ namespace Sistema_Locadora
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(12, 689);
+            label11.Location = new Point(16, 616);
             label11.Name = "label11";
             label11.Size = new Size(63, 20);
             label11.TabIndex = 23;
@@ -506,7 +500,7 @@ namespace Sistema_Locadora
             // 
             // btn_EnviarClientes
             // 
-            btn_EnviarClientes.Location = new Point(400, 709);
+            btn_EnviarClientes.Location = new Point(404, 636);
             btn_EnviarClientes.Name = "btn_EnviarClientes";
             btn_EnviarClientes.Size = new Size(94, 29);
             btn_EnviarClientes.TabIndex = 24;
@@ -518,7 +512,7 @@ namespace Sistema_Locadora
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(721, 741);
+            ClientSize = new Size(721, 679);
             Controls.Add(btn_EnviarClientes);
             Controls.Add(label11);
             Controls.Add(ckbox_CEP);
@@ -559,8 +553,6 @@ namespace Sistema_Locadora
         private Label label7;
         private Label label6;
         private MaskedTextBox msktxt_Telefone;
-        private TextBox txt_Endereco;
-        private Label label5;
         private Label label4;
         private TextBox txt_codCliente;
         private TextBox txt_nomeCliente;
@@ -573,7 +565,7 @@ namespace Sistema_Locadora
         private ToolStripButton tsbtn_inicio;
         private ToolStripButton tsbtn_voltar;
         private ToolStripSeparator toolStripSeparator4;
-        private ToolStripTextBox toolStripTextBox1;
+        private ToolStripTextBox tstxt_IdCliente;
         private ToolStripLabel toolStripLabel1;
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton tsbtn_frente;
@@ -596,5 +588,6 @@ namespace Sistema_Locadora
         private Button btn_EnviarClientes;
         private CheckBox ckbox_CodCliente;
         private Button btn_PesquisarCodCliente;
+        private Button btn_LimparClientes;
     }
 }
