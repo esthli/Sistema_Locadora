@@ -203,5 +203,60 @@ namespace Sistema_Locadora
             SetColumnVisibility(6, ckbox_Cidade.Checked, 120);   // Cidade column
             SetColumnVisibility(7, ckbox_CEP.Checked, 80);       // CEP column
         }
+
+        private void ckbox_CodCliente_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbox_CodCliente.Checked)
+            {
+                txt_codCliente.ReadOnly = false;
+                txt_Bairro.ReadOnly = true;
+                txt_Cidade.ReadOnly = true;
+                msktxt_CEP.ReadOnly = true;
+                msktxt_CPF.ReadOnly = true;
+                msktxt_Telefone.ReadOnly = true;
+                txt_nomeCliente.ReadOnly = true;
+                txt_Endereco.ReadOnly = true;
+                txt_Rua.ReadOnly = true;
+                btn_PesquisarCodCliente.Enabled = true;
+
+            }
+            else
+            {
+                txt_codCliente.ReadOnly = true;
+                txt_Bairro.ReadOnly = false;
+                txt_Cidade.ReadOnly = false;
+                msktxt_CEP.ReadOnly = false;
+                msktxt_CPF.ReadOnly = false;
+                msktxt_Telefone.ReadOnly = false;
+                txt_nomeCliente.ReadOnly = false;
+                txt_Endereco.ReadOnly = false;
+                txt_Rua.ReadOnly = false;
+                btn_PesquisarCodCliente.Enabled = false;
+
+            }
+        }
+
+        private void btn_PesquisarCodCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Conexao = new MySqlConnection(data_source);
+                string query = "SELECT * FROM Cliente " +
+                    "WHERE id_cliente = " + Convert.ToInt32(txt_codCliente.Text);
+
+                Conexao.Open();
+                MySqlCommand comando = new MySqlCommand(query, Conexao);
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                if (Conexao != null && Conexao.State == ConnectionState.Open)
+                    Conexao.Close();
+            }
+        }
     }
 }

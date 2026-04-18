@@ -31,6 +31,8 @@ namespace Sistema_Locadora
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Clientes));
             gb_Clientes = new GroupBox();
+            btn_PesquisarCodCliente = new Button();
+            ckbox_CodCliente = new CheckBox();
             msktxt_CEP = new MaskedTextBox();
             txt_Cidade = new TextBox();
             txt_Bairro = new TextBox();
@@ -74,7 +76,6 @@ namespace Sistema_Locadora
             ckbox_CEP = new CheckBox();
             label11 = new Label();
             btn_EnviarClientes = new Button();
-            ckbox_CodCliente = new CheckBox();
             gb_Clientes.SuspendLayout();
             ts_Clientes.SuspendLayout();
             SuspendLayout();
@@ -82,6 +83,7 @@ namespace Sistema_Locadora
             // gb_Clientes
             // 
             gb_Clientes.BackColor = SystemColors.ActiveCaption;
+            gb_Clientes.Controls.Add(btn_PesquisarCodCliente);
             gb_Clientes.Controls.Add(ckbox_CodCliente);
             gb_Clientes.Controls.Add(msktxt_CEP);
             gb_Clientes.Controls.Add(txt_Cidade);
@@ -106,6 +108,30 @@ namespace Sistema_Locadora
             gb_Clientes.Size = new Size(690, 319);
             gb_Clientes.TabIndex = 11;
             gb_Clientes.TabStop = false;
+            // 
+            // btn_PesquisarCodCliente
+            // 
+            btn_PesquisarCodCliente.AutoSize = true;
+            btn_PesquisarCodCliente.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_PesquisarCodCliente.Enabled = false;
+            btn_PesquisarCodCliente.Image = (Image)resources.GetObject("btn_PesquisarCodCliente.Image");
+            btn_PesquisarCodCliente.Location = new Point(172, 29);
+            btn_PesquisarCodCliente.Name = "btn_PesquisarCodCliente";
+            btn_PesquisarCodCliente.Size = new Size(26, 26);
+            btn_PesquisarCodCliente.TabIndex = 25;
+            btn_PesquisarCodCliente.UseVisualStyleBackColor = true;
+            btn_PesquisarCodCliente.Click += btn_PesquisarCodCliente_Click;
+            // 
+            // ckbox_CodCliente
+            // 
+            ckbox_CodCliente.AutoSize = true;
+            ckbox_CodCliente.Location = new Point(210, 32);
+            ckbox_CodCliente.Name = "ckbox_CodCliente";
+            ckbox_CodCliente.Size = new Size(145, 24);
+            ckbox_CodCliente.TabIndex = 24;
+            ckbox_CodCliente.Text = "Pesquisar Código";
+            ckbox_CodCliente.UseVisualStyleBackColor = true;
+            ckbox_CodCliente.CheckedChanged += ckbox_CodCliente_CheckedChanged;
             // 
             // msktxt_CEP
             // 
@@ -488,16 +514,6 @@ namespace Sistema_Locadora
             btn_EnviarClientes.UseVisualStyleBackColor = true;
             btn_EnviarClientes.Click += btn_EnviarClientes_Click;
             // 
-            // ckbox_CodCliente
-            // 
-            ckbox_CodCliente.AutoSize = true;
-            ckbox_CodCliente.Location = new Point(183, 31);
-            ckbox_CodCliente.Name = "ckbox_CodCliente";
-            ckbox_CodCliente.Size = new Size(145, 24);
-            ckbox_CodCliente.TabIndex = 24;
-            ckbox_CodCliente.Text = "Pesquisar Código";
-            ckbox_CodCliente.UseVisualStyleBackColor = true;
-            // 
             // frm_Clientes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -528,7 +544,7 @@ namespace Sistema_Locadora
 
         private void txt_codCliente_TextChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
            // txt_codCliente
         }
 
@@ -579,5 +595,6 @@ namespace Sistema_Locadora
         private Label label11;
         private Button btn_EnviarClientes;
         private CheckBox ckbox_CodCliente;
+        private Button btn_PesquisarCodCliente;
     }
 }
