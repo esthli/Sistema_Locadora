@@ -363,7 +363,12 @@ namespace Sistema_Locadora
 
         private void btn_PesquisarCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
-          
+
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
 
         }
     }

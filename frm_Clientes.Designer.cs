@@ -451,6 +451,7 @@ namespace Sistema_Locadora
             ltview_BuscarClientes.Size = new Size(686, 250);
             ltview_BuscarClientes.TabIndex = 17;
             ltview_BuscarClientes.UseCompatibleStateImageBehavior = false;
+            //ltview_BuscarClientes.SelectedIndexChanged += this.ltview_BuscarClientes_SelectedIndexChanged;
             // 
             // ckbox_Telefone
             // 
@@ -516,6 +517,7 @@ namespace Sistema_Locadora
             label11.Size = new Size(68, 20);
             label11.TabIndex = 23;
             label11.Text = "Mostrar:";
+            label11.Click += label11_Click;
             // 
             // btn_EnviarClientes
             // 

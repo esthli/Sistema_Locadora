@@ -58,6 +58,8 @@
             txt_CodGeneroFilme = new TextBox();
             label3 = new Label();
             gb_GeneroFilme = new GroupBox();
+            ckbox_PesquisarGenero = new CheckBox();
+            btn_PesquisarCodGenero = new Button();
             txt_GeneroFilme = new TextBox();
             tbctrl_Filmes = new TabControl();
             tbpg_Filmes = new TabPage();
@@ -66,9 +68,9 @@
             button1 = new Button();
             label5 = new Label();
             tbpg_Genero = new TabPage();
-            ltview_BuscarClientes = new ListView();
-            txt_BuscaCliente = new TextBox();
-            btn_PesquisarCliente = new Button();
+            ltview_BuscarGeneros = new ListView();
+            txt_BuscaGenero = new TextBox();
+            btn_PesquisarGenero = new Button();
             label10 = new Label();
             gb_Filmes.SuspendLayout();
             ts_Filmes.SuspendLayout();
@@ -280,6 +282,7 @@
             tsbtn_delFilme.Name = "tsbtn_delFilme";
             tsbtn_delFilme.Size = new Size(34, 34);
             tsbtn_delFilme.Text = "Deletar";
+            tsbtn_delFilme.Click += tsbtn_delFilme_Click;
             // 
             // tsbtn_saveFilme
             // 
@@ -319,6 +322,8 @@
             // gb_GeneroFilme
             // 
             gb_GeneroFilme.BackColor = Color.Transparent;
+            gb_GeneroFilme.Controls.Add(ckbox_PesquisarGenero);
+            gb_GeneroFilme.Controls.Add(btn_PesquisarCodGenero);
             gb_GeneroFilme.Controls.Add(txt_GeneroFilme);
             gb_GeneroFilme.Controls.Add(label3);
             gb_GeneroFilme.Controls.Add(txt_CodGeneroFilme);
@@ -328,6 +333,26 @@
             gb_GeneroFilme.Size = new Size(726, 116);
             gb_GeneroFilme.TabIndex = 18;
             gb_GeneroFilme.TabStop = false;
+            // 
+            // ckbox_PesquisarGenero
+            // 
+            ckbox_PesquisarGenero.AutoSize = true;
+            ckbox_PesquisarGenero.Location = new Point(243, 31);
+            ckbox_PesquisarGenero.Name = "ckbox_PesquisarGenero";
+            ckbox_PesquisarGenero.Size = new Size(145, 24);
+            ckbox_PesquisarGenero.TabIndex = 29;
+            ckbox_PesquisarGenero.Text = "Pesquisar Código";
+            ckbox_PesquisarGenero.UseVisualStyleBackColor = true;
+            ckbox_PesquisarGenero.CheckedChanged += ckbox_PesquisarGenero_CheckedChanged;
+            // 
+            // btn_PesquisarCodGenero
+            // 
+            btn_PesquisarCodGenero.Image = (Image)resources.GetObject("btn_PesquisarCodGenero.Image");
+            btn_PesquisarCodGenero.Location = new Point(191, 28);
+            btn_PesquisarCodGenero.Name = "btn_PesquisarCodGenero";
+            btn_PesquisarCodGenero.Size = new Size(33, 29);
+            btn_PesquisarCodGenero.TabIndex = 28;
+            btn_PesquisarCodGenero.UseVisualStyleBackColor = true;
             // 
             // txt_GeneroFilme
             // 
@@ -409,9 +434,9 @@
             // 
             tbpg_Genero.BackColor = Color.DarkGray;
             tbpg_Genero.Controls.Add(gb_GeneroFilme);
-            tbpg_Genero.Controls.Add(ltview_BuscarClientes);
-            tbpg_Genero.Controls.Add(txt_BuscaCliente);
-            tbpg_Genero.Controls.Add(btn_PesquisarCliente);
+            tbpg_Genero.Controls.Add(ltview_BuscarGeneros);
+            tbpg_Genero.Controls.Add(txt_BuscaGenero);
+            tbpg_Genero.Controls.Add(btn_PesquisarGenero);
             tbpg_Genero.Controls.Add(label10);
             tbpg_Genero.Location = new Point(4, 29);
             tbpg_Genero.Name = "tbpg_Genero";
@@ -420,37 +445,38 @@
             tbpg_Genero.TabIndex = 1;
             tbpg_Genero.Text = "Gênero";
             // 
-            // ltview_BuscarClientes
+            // ltview_BuscarGeneros
             // 
-            ltview_BuscarClientes.BorderStyle = BorderStyle.FixedSingle;
-            ltview_BuscarClientes.FullRowSelect = true;
-            ltview_BuscarClientes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            ltview_BuscarClientes.Location = new Point(28, 207);
-            ltview_BuscarClientes.Name = "ltview_BuscarClientes";
-            ltview_BuscarClientes.Size = new Size(686, 250);
-            ltview_BuscarClientes.TabIndex = 27;
-            ltview_BuscarClientes.UseCompatibleStateImageBehavior = false;
+            ltview_BuscarGeneros.BorderStyle = BorderStyle.FixedSingle;
+            ltview_BuscarGeneros.FullRowSelect = true;
+            ltview_BuscarGeneros.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            ltview_BuscarGeneros.Location = new Point(28, 207);
+            ltview_BuscarGeneros.Name = "ltview_BuscarGeneros";
+            ltview_BuscarGeneros.Size = new Size(686, 250);
+            ltview_BuscarGeneros.TabIndex = 27;
+            ltview_BuscarGeneros.UseCompatibleStateImageBehavior = false;
             // 
-            // txt_BuscaCliente
+            // txt_BuscaGenero
             // 
-            txt_BuscaCliente.Location = new Point(28, 170);
-            txt_BuscaCliente.Name = "txt_BuscaCliente";
-            txt_BuscaCliente.Size = new Size(560, 27);
-            txt_BuscaCliente.TabIndex = 26;
+            txt_BuscaGenero.Location = new Point(28, 170);
+            txt_BuscaGenero.Name = "txt_BuscaGenero";
+            txt_BuscaGenero.Size = new Size(560, 27);
+            txt_BuscaGenero.TabIndex = 26;
             // 
-            // btn_PesquisarCliente
+            // btn_PesquisarGenero
             // 
-            btn_PesquisarCliente.BackColor = SystemColors.ActiveBorder;
-            btn_PesquisarCliente.FlatStyle = FlatStyle.System;
-            btn_PesquisarCliente.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_PesquisarCliente.ForeColor = Color.DarkGray;
-            btn_PesquisarCliente.Location = new Point(594, 170);
-            btn_PesquisarCliente.Name = "btn_PesquisarCliente";
-            btn_PesquisarCliente.Size = new Size(120, 27);
-            btn_PesquisarCliente.TabIndex = 24;
-            btn_PesquisarCliente.Text = "Pesquisar";
-            btn_PesquisarCliente.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btn_PesquisarCliente.UseVisualStyleBackColor = false;
+            btn_PesquisarGenero.BackColor = SystemColors.ActiveBorder;
+            btn_PesquisarGenero.FlatStyle = FlatStyle.System;
+            btn_PesquisarGenero.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btn_PesquisarGenero.ForeColor = Color.DarkGray;
+            btn_PesquisarGenero.Location = new Point(594, 170);
+            btn_PesquisarGenero.Name = "btn_PesquisarGenero";
+            btn_PesquisarGenero.Size = new Size(120, 27);
+            btn_PesquisarGenero.TabIndex = 24;
+            btn_PesquisarGenero.Text = "Pesquisar";
+            btn_PesquisarGenero.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn_PesquisarGenero.UseVisualStyleBackColor = false;
+            btn_PesquisarGenero.Click += btn_PesquisarGenero_Click;
             // 
             // label10
             // 
@@ -525,9 +551,11 @@
         private TextBox textBox1;
         private Button button1;
         private Label label5;
-        private ListView ltview_BuscarClientes;
-        private TextBox txt_BuscaCliente;
-        private Button btn_PesquisarCliente;
+        private ListView ltview_BuscarGeneros;
+        private TextBox txt_BuscaGenero;
+        private Button btn_PesquisarGenero;
         private Label label10;
+        private CheckBox ckbox_PesquisarGenero;
+        private Button btn_PesquisarCodGenero;
     }
 }
