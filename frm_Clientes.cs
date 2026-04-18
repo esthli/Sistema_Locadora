@@ -363,12 +363,7 @@ namespace Sistema_Locadora
 
         private void btn_PesquisarCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
-            /*
-            if(e.KeyChar == (char)Keys.Enter)
-            {
-                btn_PesquisarCliente_Click(sender, e);
-                e.Handled = true; // prevent the beep sound on Enter
-            }*/
+          
 
         }
     }

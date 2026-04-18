@@ -109,12 +109,15 @@ namespace Sistema_Locadora
             // 
             // btn_LimparClientes
             // 
-            btn_LimparClientes.Location = new Point(566, 29);
+            btn_LimparClientes.BackColor = SystemColors.InactiveBorder;
+            btn_LimparClientes.ForeColor = SystemColors.ControlDarkDark;
+            btn_LimparClientes.Image = (Image)resources.GetObject("btn_LimparClientes.Image");
+            btn_LimparClientes.Location = new Point(628, 29);
             btn_LimparClientes.Name = "btn_LimparClientes";
-            btn_LimparClientes.Size = new Size(94, 29);
+            btn_LimparClientes.Size = new Size(32, 29);
             btn_LimparClientes.TabIndex = 26;
-            btn_LimparClientes.Text = "Limpar";
-            btn_LimparClientes.UseVisualStyleBackColor = true;
+            btn_LimparClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn_LimparClientes.UseVisualStyleBackColor = false;
             btn_LimparClientes.Click += btn_LimparClientes_Click;
             // 
             // btn_PesquisarCodCliente
@@ -133,9 +136,10 @@ namespace Sistema_Locadora
             // ckbox_CodCliente
             // 
             ckbox_CodCliente.AutoSize = true;
+            ckbox_CodCliente.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ckbox_CodCliente.Location = new Point(210, 32);
             ckbox_CodCliente.Name = "ckbox_CodCliente";
-            ckbox_CodCliente.Size = new Size(145, 24);
+            ckbox_CodCliente.Size = new Size(148, 24);
             ckbox_CodCliente.TabIndex = 24;
             ckbox_CodCliente.Text = "Pesquisar Código";
             ckbox_CodCliente.UseVisualStyleBackColor = true;
@@ -186,35 +190,38 @@ namespace Sistema_Locadora
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label8.Location = new Point(22, 208);
+            label8.Location = new Point(13, 206);
             label8.Name = "label8";
             label8.Size = new Size(73, 22);
             label8.TabIndex = 19;
             label8.Text = "Cidade";
+            label8.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label7.Location = new Point(30, 172);
+            label7.Location = new Point(22, 170);
             label7.Name = "label7";
             label7.Size = new Size(64, 22);
             label7.TabIndex = 18;
             label7.Text = "Bairro";
+            label7.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label6.Location = new Point(46, 139);
+            label6.Location = new Point(30, 137);
             label6.Name = "label6";
             label6.Size = new Size(46, 22);
             label6.TabIndex = 17;
             label6.Text = "Rua";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // msktxt_Telefone
             // 
-            msktxt_Telefone.Location = new Point(361, 103);
+            msktxt_Telefone.Location = new Point(352, 103);
             msktxt_Telefone.Mask = "(99) 00000-0000";
             msktxt_Telefone.Name = "msktxt_Telefone";
             msktxt_Telefone.Size = new Size(125, 27);
@@ -225,7 +232,7 @@ namespace Sistema_Locadora
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label4.Location = new Point(266, 107);
+            label4.Location = new Point(257, 106);
             label4.Name = "label4";
             label4.Size = new Size(89, 22);
             label4.TabIndex = 13;
@@ -251,11 +258,12 @@ namespace Sistema_Locadora
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label1.Location = new Point(22, 32);
+            label1.Location = new Point(13, 34);
             label1.Name = "label1";
             label1.Size = new Size(73, 22);
             label1.TabIndex = 6;
             label1.Text = "Código";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // msktxt_CPF
             // 
@@ -271,21 +279,23 @@ namespace Sistema_Locadora
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label2.Location = new Point(47, 106);
+            label2.Location = new Point(27, 107);
             label2.Name = "label2";
             label2.Size = new Size(49, 22);
             label2.TabIndex = 7;
             label2.Text = "CPF";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label3.Location = new Point(30, 69);
+            label3.Location = new Point(22, 71);
             label3.Name = "label3";
             label3.Size = new Size(61, 22);
             label3.TabIndex = 8;
             label3.Text = "Nome";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ts_Clientes
             // 
@@ -442,9 +452,10 @@ namespace Sistema_Locadora
             // ckbox_Telefone
             // 
             ckbox_Telefone.AutoSize = true;
+            ckbox_Telefone.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             ckbox_Telefone.Location = new Point(25, 639);
             ckbox_Telefone.Name = "ckbox_Telefone";
-            ckbox_Telefone.Size = new Size(88, 24);
+            ckbox_Telefone.Size = new Size(89, 24);
             ckbox_Telefone.TabIndex = 18;
             ckbox_Telefone.Text = "Telefone";
             ckbox_Telefone.UseVisualStyleBackColor = true;
@@ -452,9 +463,10 @@ namespace Sistema_Locadora
             // ckbox_Rua
             // 
             ckbox_Rua.AutoSize = true;
+            ckbox_Rua.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             ckbox_Rua.Location = new Point(119, 639);
             ckbox_Rua.Name = "ckbox_Rua";
-            ckbox_Rua.Size = new Size(56, 24);
+            ckbox_Rua.Size = new Size(57, 24);
             ckbox_Rua.TabIndex = 19;
             ckbox_Rua.Text = "Rua";
             ckbox_Rua.UseVisualStyleBackColor = true;
@@ -462,9 +474,10 @@ namespace Sistema_Locadora
             // ckbox_Bairro
             // 
             ckbox_Bairro.AutoSize = true;
+            ckbox_Bairro.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             ckbox_Bairro.Location = new Point(181, 639);
             ckbox_Bairro.Name = "ckbox_Bairro";
-            ckbox_Bairro.Size = new Size(71, 24);
+            ckbox_Bairro.Size = new Size(73, 24);
             ckbox_Bairro.TabIndex = 20;
             ckbox_Bairro.Text = "Bairro";
             ckbox_Bairro.UseVisualStyleBackColor = true;
@@ -472,6 +485,7 @@ namespace Sistema_Locadora
             // ckbox_Cidade
             // 
             ckbox_Cidade.AutoSize = true;
+            ckbox_Cidade.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             ckbox_Cidade.Location = new Point(258, 639);
             ckbox_Cidade.Name = "ckbox_Cidade";
             ckbox_Cidade.Size = new Size(78, 24);
@@ -482,9 +496,10 @@ namespace Sistema_Locadora
             // ckbox_CEP
             // 
             ckbox_CEP.AutoSize = true;
+            ckbox_CEP.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             ckbox_CEP.Location = new Point(342, 639);
             ckbox_CEP.Name = "ckbox_CEP";
-            ckbox_CEP.Size = new Size(56, 24);
+            ckbox_CEP.Size = new Size(57, 24);
             ckbox_CEP.TabIndex = 22;
             ckbox_CEP.Text = "CEP";
             ckbox_CEP.UseVisualStyleBackColor = true;
@@ -492,20 +507,24 @@ namespace Sistema_Locadora
             // label11
             // 
             label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label11.Location = new Point(16, 616);
             label11.Name = "label11";
-            label11.Size = new Size(63, 20);
+            label11.Size = new Size(68, 20);
             label11.TabIndex = 23;
             label11.Text = "Mostrar:";
             // 
             // btn_EnviarClientes
             // 
+            btn_EnviarClientes.BackColor = SystemColors.ControlDarkDark;
+            btn_EnviarClientes.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_EnviarClientes.ForeColor = SystemColors.ButtonHighlight;
             btn_EnviarClientes.Location = new Point(404, 636);
             btn_EnviarClientes.Name = "btn_EnviarClientes";
             btn_EnviarClientes.Size = new Size(94, 29);
             btn_EnviarClientes.TabIndex = 24;
             btn_EnviarClientes.Text = "Enviar";
-            btn_EnviarClientes.UseVisualStyleBackColor = true;
+            btn_EnviarClientes.UseVisualStyleBackColor = false;
             btn_EnviarClientes.Click += btn_EnviarClientes_Click;
             // 
             // frm_Clientes
