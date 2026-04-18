@@ -27,7 +27,14 @@ namespace Sistema_Locadora
 
             ltview_BuscarClientes.Columns.Add("ID", 50, HorizontalAlignment.Left);
             ltview_BuscarClientes.Columns.Add("Nome", 200, HorizontalAlignment.Left);
-            ltview_BuscarClientes.Columns.Add("cpf", 115, HorizontalAlignment.Left);
+            ltview_BuscarClientes.Columns.Add("CPF", 115, HorizontalAlignment.Left);
+
+            // add optional columns but keep them hidden by default (width = 0)
+            ltview_BuscarClientes.Columns.Add("Telefone", 0, HorizontalAlignment.Left);
+            ltview_BuscarClientes.Columns.Add("Rua", 0, HorizontalAlignment.Left);
+            ltview_BuscarClientes.Columns.Add("Bairro", 0, HorizontalAlignment.Left);
+            ltview_BuscarClientes.Columns.Add("Cidade", 0, HorizontalAlignment.Left);
+            ltview_BuscarClientes.Columns.Add("CEP", 0, HorizontalAlignment.Left);
         }
 
         private void tsbtn_addCliente_Click(object sender, EventArgs e)
@@ -103,7 +110,7 @@ namespace Sistema_Locadora
                 //Criar a conexão com o banco de dados
                 Conexao = new MySqlConnection(data_source);
                 // MySQL uses LIKE (not iLIKE). Also consider parameterized queries to avoid SQL injection.
-                string query = "SELECT id_cliente, nome, cpf FROM Cliente " +
+                string query = "SELECT * FROM Cliente " +
                     "WHERE nome LIKE '%" + txt_BuscaCliente.Text + "%'";
 
                 Conexao.Open();
@@ -120,8 +127,12 @@ namespace Sistema_Locadora
                         string[] row = {
                             Convert.ToString(reader.GetInt32(0)),
                             reader.GetString(1),
-                            reader.GetString(2)
-                            
+                            reader.GetString(2),
+                            reader.GetString(3),
+                            reader.GetString(4),
+                            reader.GetString(5),
+                            reader.GetString(6),
+                            reader.GetString(7)
                         };
 
                         var linhalista = new ListViewItem(row);
@@ -176,29 +187,21 @@ namespace Sistema_Locadora
 
         }
 
+        // helper and button handler
+        private void SetColumnVisibility(int index, bool visible, int width)
+        {
+            if (ltview_BuscarClientes.Columns.Count > index)
+                ltview_BuscarClientes.Columns[index].Width = visible ? width : 0;
+        }
+
         private void btn_EnviarClientes_Click(object sender, EventArgs e)
         {
-            if(ckbox_Telefone.Checked){
-
-            }
-            if (ckbox_Telefone.Checked) {
-
-            }
-
-            if(ckbox_Rua.Checked){
-
-            }
-             if(ckbox_Bairro.Checked){
-
-            }
-             if(ckbox_Cidade.Checked){
-
-            }
-
-            if (ckbox_CEP.Checked){
-
-            }
-
+            // adjust widths as needed for your layout
+            SetColumnVisibility(3, ckbox_Telefone.Checked, 110); // Telefone column
+            SetColumnVisibility(4, ckbox_Rua.Checked, 150);      // Rua column
+            SetColumnVisibility(5, ckbox_Bairro.Checked, 120);   // Bairro column
+            SetColumnVisibility(6, ckbox_Cidade.Checked, 120);   // Cidade column
+            SetColumnVisibility(7, ckbox_CEP.Checked, 80);       // CEP column
         }
     }
 }
