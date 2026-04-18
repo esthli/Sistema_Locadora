@@ -41,6 +41,7 @@
             // 
             // toolStrip1
             // 
+            toolStrip1.BackColor = SystemColors.ButtonHighlight;
             toolStrip1.ImageScalingSize = new Size(50, 50);
             toolStrip1.Items.AddRange(new ToolStripItem[] { tsbtn_Clientes, toolStripSeparator1, tsbtn_Filmes, toolStripSeparator2, toolStripButton3 });
             toolStrip1.Location = new Point(0, 0);

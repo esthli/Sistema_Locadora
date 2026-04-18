@@ -169,10 +169,22 @@ namespace Sistema_Locadora
 
                 Conexao.Open();
 
-                MySqlCommand comando = new MySqlCommand(query, Conexao);
-                comando.ExecuteNonQuery(); // use ExecuteNonQuery for DELETE
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
 
-                MessageBox.Show("Cliente deletado com sucesso!");
+                if (MessageBox.Show("Tem certeza que deseja deletar este cliente? id = " + txt_codCliente.Text, "Confirmação de exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    MySqlCommand comando = new MySqlCommand(query, Conexao);
+                    comando.ExecuteNonQuery(); // use ExecuteNonQuery for DELETE
+
+                    MessageBox.Show("Cliente deletado com sucesso!");
+                }
+                else
+                {
+                    MessageBox.Show("Exclusão cancelada.");
+                }
+
+
+
 
             }
             catch (Exception ex)
