@@ -142,6 +142,7 @@ namespace Sistema_Locadora
                     }
                 }
 
+                txt_BuscaCliente.Clear();
                 // removed duplicate comando.ExecuteReader();
             }
             catch (Exception ex)

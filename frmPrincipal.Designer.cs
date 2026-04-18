@@ -94,8 +94,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(896, 747);
             Controls.Add(toolStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmPrincipal";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema Locadora";
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();

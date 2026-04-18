@@ -30,13 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Filmes));
             gb_Filmes = new GroupBox();
+            ckbox_PesquisarCodFilme = new CheckBox();
+            btn_PesquisarCodFilme = new Button();
             cbox_GeneroFilme = new ComboBox();
             cbox_ClassificacaoFilme = new ComboBox();
             msktxt_AnoFilme = new MaskedTextBox();
             label2 = new Label();
             label1 = new Label();
             label01 = new Label();
-            textBox13 = new TextBox();
+            txt_CodFilme = new TextBox();
             txt_TituloFilme = new TextBox();
             label16 = new Label();
             label18 = new Label();
@@ -63,15 +65,20 @@
             txt_GeneroFilme = new TextBox();
             tbctrl_Filmes = new TabControl();
             tbpg_Filmes = new TabPage();
-            listView1 = new ListView();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            ltview_BuscarFilme = new ListView();
+            txt_BuscarFIlme = new TextBox();
+            btn_BuscarFilme = new Button();
             label5 = new Label();
             tbpg_Genero = new TabPage();
             ltview_BuscarGeneros = new ListView();
             txt_BuscaGenero = new TextBox();
             btn_PesquisarGenero = new Button();
             label10 = new Label();
+            btn_EnviarFilmes = new Button();
+            label11 = new Label();
+            ckbox_AnoFilme = new CheckBox();
+            ckbox_ClassificacaoFilme = new CheckBox();
+            ckbox_Genero = new CheckBox();
             gb_Filmes.SuspendLayout();
             ts_Filmes.SuspendLayout();
             gb_GeneroFilme.SuspendLayout();
@@ -83,26 +90,50 @@
             // gb_Filmes
             // 
             gb_Filmes.BackColor = Color.Transparent;
+            gb_Filmes.Controls.Add(ckbox_PesquisarCodFilme);
+            gb_Filmes.Controls.Add(btn_PesquisarCodFilme);
             gb_Filmes.Controls.Add(cbox_GeneroFilme);
             gb_Filmes.Controls.Add(cbox_ClassificacaoFilme);
             gb_Filmes.Controls.Add(msktxt_AnoFilme);
             gb_Filmes.Controls.Add(label2);
             gb_Filmes.Controls.Add(label1);
             gb_Filmes.Controls.Add(label01);
-            gb_Filmes.Controls.Add(textBox13);
+            gb_Filmes.Controls.Add(txt_CodFilme);
             gb_Filmes.Controls.Add(txt_TituloFilme);
             gb_Filmes.Controls.Add(label16);
             gb_Filmes.Controls.Add(label18);
             gb_Filmes.Location = new Point(9, 16);
             gb_Filmes.Name = "gb_Filmes";
-            gb_Filmes.Size = new Size(723, 166);
+            gb_Filmes.Size = new Size(723, 152);
             gb_Filmes.TabIndex = 12;
             gb_Filmes.TabStop = false;
+            // 
+            // ckbox_PesquisarCodFilme
+            // 
+            ckbox_PesquisarCodFilme.AutoSize = true;
+            ckbox_PesquisarCodFilme.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ckbox_PesquisarCodFilme.Location = new Point(267, 29);
+            ckbox_PesquisarCodFilme.Name = "ckbox_PesquisarCodFilme";
+            ckbox_PesquisarCodFilme.Size = new Size(163, 27);
+            ckbox_PesquisarCodFilme.TabIndex = 31;
+            ckbox_PesquisarCodFilme.Text = "Pesquisar Código";
+            ckbox_PesquisarCodFilme.UseVisualStyleBackColor = true;
+            ckbox_PesquisarCodFilme.CheckedChanged += ckbox_PesquisarCodFilme_CheckedChanged;
+            // 
+            // btn_PesquisarCodFilme
+            // 
+            btn_PesquisarCodFilme.Image = (Image)resources.GetObject("btn_PesquisarCodFilme.Image");
+            btn_PesquisarCodFilme.Location = new Point(215, 26);
+            btn_PesquisarCodFilme.Name = "btn_PesquisarCodFilme";
+            btn_PesquisarCodFilme.Size = new Size(33, 29);
+            btn_PesquisarCodFilme.TabIndex = 30;
+            btn_PesquisarCodFilme.UseVisualStyleBackColor = true;
+            btn_PesquisarCodFilme.Click += btn_PesquisarCodFilme_Click;
             // 
             // cbox_GeneroFilme
             // 
             cbox_GeneroFilme.FormattingEnabled = true;
-            cbox_GeneroFilme.Location = new Point(526, 114);
+            cbox_GeneroFilme.Location = new Point(526, 104);
             cbox_GeneroFilme.Name = "cbox_GeneroFilme";
             cbox_GeneroFilme.Size = new Size(170, 31);
             cbox_GeneroFilme.TabIndex = 17;
@@ -112,14 +143,14 @@
             cbox_ClassificacaoFilme.DropDownStyle = ComboBoxStyle.DropDownList;
             cbox_ClassificacaoFilme.FormattingEnabled = true;
             cbox_ClassificacaoFilme.Items.AddRange(new object[] { "L", "10", "12", "14", "16", "18" });
-            cbox_ClassificacaoFilme.Location = new Point(356, 114);
+            cbox_ClassificacaoFilme.Location = new Point(375, 104);
             cbox_ClassificacaoFilme.Name = "cbox_ClassificacaoFilme";
             cbox_ClassificacaoFilme.Size = new Size(73, 31);
             cbox_ClassificacaoFilme.TabIndex = 16;
             // 
             // msktxt_AnoFilme
             // 
-            msktxt_AnoFilme.Location = new Point(98, 114);
+            msktxt_AnoFilme.Location = new Point(98, 104);
             msktxt_AnoFilme.Mask = "0000";
             msktxt_AnoFilme.Name = "msktxt_AnoFilme";
             msktxt_AnoFilme.Size = new Size(50, 30);
@@ -129,41 +160,44 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(454, 117);
+            label2.Font = new Font("Lucida Bright", 10.2F, FontStyle.Bold);
+            label2.Location = new Point(454, 109);
             label2.Name = "label2";
-            label2.Size = new Size(66, 23);
+            label2.Size = new Size(73, 19);
             label2.TabIndex = 14;
             label2.Text = "Gênero";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(167, 117);
+            label1.Font = new Font("Lucida Bright", 10.2F, FontStyle.Bold);
+            label1.Location = new Point(154, 109);
             label1.Name = "label1";
-            label1.Size = new Size(183, 23);
+            label1.Size = new Size(221, 19);
             label1.TabIndex = 13;
             label1.Text = "Classificação Indicativa";
             // 
             // label01
             // 
             label01.AutoSize = true;
-            label01.Location = new Point(23, 117);
+            label01.Font = new Font("Lucida Bright", 10.2F, FontStyle.Bold);
+            label01.Location = new Point(32, 109);
             label01.Name = "label01";
-            label01.Size = new Size(41, 23);
+            label01.Size = new Size(44, 19);
             label01.TabIndex = 12;
             label01.Text = "Ano";
             // 
-            // textBox13
+            // txt_CodFilme
             // 
-            textBox13.Enabled = false;
-            textBox13.Location = new Point(98, 37);
-            textBox13.Name = "textBox13";
-            textBox13.Size = new Size(106, 30);
-            textBox13.TabIndex = 11;
+            txt_CodFilme.Enabled = false;
+            txt_CodFilme.Location = new Point(98, 27);
+            txt_CodFilme.Name = "txt_CodFilme";
+            txt_CodFilme.Size = new Size(106, 30);
+            txt_CodFilme.TabIndex = 11;
             // 
             // txt_TituloFilme
             // 
-            txt_TituloFilme.Location = new Point(98, 74);
+            txt_TituloFilme.Location = new Point(98, 64);
             txt_TituloFilme.Name = "txt_TituloFilme";
             txt_TituloFilme.Size = new Size(598, 30);
             txt_TituloFilme.TabIndex = 10;
@@ -171,18 +205,20 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(15, 40);
+            label16.Font = new Font("Lucida Bright", 10.2F, FontStyle.Bold);
+            label16.Location = new Point(15, 30);
             label16.Name = "label16";
-            label16.Size = new Size(65, 23);
+            label16.Size = new Size(72, 19);
             label16.TabIndex = 6;
             label16.Text = "Código";
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(23, 77);
+            label18.Font = new Font("Lucida Bright", 10.2F, FontStyle.Bold);
+            label18.Location = new Point(25, 69);
             label18.Name = "label18";
-            label18.Size = new Size(53, 23);
+            label18.Size = new Size(62, 19);
             label18.TabIndex = 8;
             label18.Text = "Título";
             // 
@@ -292,13 +328,15 @@
             tsbtn_saveFilme.Name = "tsbtn_saveFilme";
             tsbtn_saveFilme.Size = new Size(34, 34);
             tsbtn_saveFilme.Text = "Salvar";
+            tsbtn_saveFilme.Click += tsbtn_saveFilme_Click;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(22, 32);
+            label6.Font = new Font("Lucida Bright", 10.8F, FontStyle.Bold);
+            label6.Location = new Point(23, 31);
             label6.Name = "label6";
-            label6.Size = new Size(58, 20);
+            label6.Size = new Size(76, 20);
             label6.TabIndex = 6;
             label6.Text = "Código";
             // 
@@ -313,9 +351,10 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(22, 73);
+            label3.Font = new Font("Lucida Bright", 10.8F, FontStyle.Bold);
+            label3.Location = new Point(23, 72);
             label3.Name = "label3";
-            label3.Size = new Size(57, 20);
+            label3.Size = new Size(76, 20);
             label3.TabIndex = 14;
             label3.Text = "Gênero";
             // 
@@ -337,9 +376,10 @@
             // ckbox_PesquisarGenero
             // 
             ckbox_PesquisarGenero.AutoSize = true;
+            ckbox_PesquisarGenero.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ckbox_PesquisarGenero.Location = new Point(243, 31);
             ckbox_PesquisarGenero.Name = "ckbox_PesquisarGenero";
-            ckbox_PesquisarGenero.Size = new Size(145, 24);
+            ckbox_PesquisarGenero.Size = new Size(163, 27);
             ckbox_PesquisarGenero.TabIndex = 29;
             ckbox_PesquisarGenero.Text = "Pesquisar Código";
             ckbox_PesquisarGenero.UseVisualStyleBackColor = true;
@@ -353,6 +393,7 @@
             btn_PesquisarCodGenero.Size = new Size(33, 29);
             btn_PesquisarCodGenero.TabIndex = 28;
             btn_PesquisarCodGenero.UseVisualStyleBackColor = true;
+            btn_PesquisarCodGenero.Click += btn_PesquisarCodGenero_Click;
             // 
             // txt_GeneroFilme
             // 
@@ -368,57 +409,63 @@
             tbctrl_Filmes.Location = new Point(10, 49);
             tbctrl_Filmes.Name = "tbctrl_Filmes";
             tbctrl_Filmes.SelectedIndex = 0;
-            tbctrl_Filmes.Size = new Size(746, 569);
+            tbctrl_Filmes.Size = new Size(746, 618);
             tbctrl_Filmes.TabIndex = 20;
             tbctrl_Filmes.SelectedIndexChanged += tbctrl_Filmes_SelectedIndexChanged;
             // 
             // tbpg_Filmes
             // 
             tbpg_Filmes.BackColor = SystemColors.ActiveCaption;
+            tbpg_Filmes.Controls.Add(btn_EnviarFilmes);
+            tbpg_Filmes.Controls.Add(label11);
+            tbpg_Filmes.Controls.Add(ckbox_AnoFilme);
+            tbpg_Filmes.Controls.Add(ckbox_ClassificacaoFilme);
+            tbpg_Filmes.Controls.Add(ckbox_Genero);
             tbpg_Filmes.Controls.Add(gb_Filmes);
-            tbpg_Filmes.Controls.Add(listView1);
-            tbpg_Filmes.Controls.Add(textBox1);
-            tbpg_Filmes.Controls.Add(button1);
+            tbpg_Filmes.Controls.Add(ltview_BuscarFilme);
+            tbpg_Filmes.Controls.Add(txt_BuscarFIlme);
+            tbpg_Filmes.Controls.Add(btn_BuscarFilme);
             tbpg_Filmes.Controls.Add(label5);
             tbpg_Filmes.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tbpg_Filmes.Location = new Point(4, 29);
             tbpg_Filmes.Name = "tbpg_Filmes";
             tbpg_Filmes.Padding = new Padding(3);
-            tbpg_Filmes.Size = new Size(738, 536);
+            tbpg_Filmes.Size = new Size(738, 585);
             tbpg_Filmes.TabIndex = 0;
             tbpg_Filmes.Text = "Filme";
             // 
-            // listView1
+            // ltview_BuscarFilme
             // 
-            listView1.BorderStyle = BorderStyle.FixedSingle;
-            listView1.FullRowSelect = true;
-            listView1.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listView1.Location = new Point(19, 261);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(686, 250);
-            listView1.TabIndex = 27;
-            listView1.UseCompatibleStateImageBehavior = false;
+            ltview_BuscarFilme.BorderStyle = BorderStyle.FixedSingle;
+            ltview_BuscarFilme.FullRowSelect = true;
+            ltview_BuscarFilme.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            ltview_BuscarFilme.Location = new Point(19, 261);
+            ltview_BuscarFilme.Name = "ltview_BuscarFilme";
+            ltview_BuscarFilme.Size = new Size(686, 250);
+            ltview_BuscarFilme.TabIndex = 27;
+            ltview_BuscarFilme.UseCompatibleStateImageBehavior = false;
             // 
-            // textBox1
+            // txt_BuscarFIlme
             // 
-            textBox1.Location = new Point(19, 224);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(560, 30);
-            textBox1.TabIndex = 26;
+            txt_BuscarFIlme.Location = new Point(19, 224);
+            txt_BuscarFIlme.Name = "txt_BuscarFIlme";
+            txt_BuscarFIlme.Size = new Size(560, 30);
+            txt_BuscarFIlme.TabIndex = 26;
             // 
-            // button1
+            // btn_BuscarFilme
             // 
-            button1.BackColor = SystemColors.ActiveBorder;
-            button1.FlatStyle = FlatStyle.System;
-            button1.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.DarkGray;
-            button1.Location = new Point(585, 224);
-            button1.Name = "button1";
-            button1.Size = new Size(120, 27);
-            button1.TabIndex = 24;
-            button1.Text = "Pesquisar";
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = false;
+            btn_BuscarFilme.BackColor = SystemColors.ActiveBorder;
+            btn_BuscarFilme.FlatStyle = FlatStyle.System;
+            btn_BuscarFilme.Font = new Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btn_BuscarFilme.ForeColor = Color.DarkGray;
+            btn_BuscarFilme.Location = new Point(585, 224);
+            btn_BuscarFilme.Name = "btn_BuscarFilme";
+            btn_BuscarFilme.Size = new Size(120, 27);
+            btn_BuscarFilme.TabIndex = 24;
+            btn_BuscarFilme.Text = "Pesquisar";
+            btn_BuscarFilme.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn_BuscarFilme.UseVisualStyleBackColor = false;
+            btn_BuscarFilme.Click += btn_BuscarFilme_Click;
             // 
             // label5
             // 
@@ -441,7 +488,7 @@
             tbpg_Genero.Location = new Point(4, 29);
             tbpg_Genero.Name = "tbpg_Genero";
             tbpg_Genero.Padding = new Padding(3);
-            tbpg_Genero.Size = new Size(738, 536);
+            tbpg_Genero.Size = new Size(738, 585);
             tbpg_Genero.TabIndex = 1;
             tbpg_Genero.Text = "Gênero";
             // 
@@ -452,7 +499,7 @@
             ltview_BuscarGeneros.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             ltview_BuscarGeneros.Location = new Point(28, 207);
             ltview_BuscarGeneros.Name = "ltview_BuscarGeneros";
-            ltview_BuscarGeneros.Size = new Size(686, 250);
+            ltview_BuscarGeneros.Size = new Size(686, 359);
             ltview_BuscarGeneros.TabIndex = 27;
             ltview_BuscarGeneros.UseCompatibleStateImageBehavior = false;
             // 
@@ -488,14 +535,71 @@
             label10.TabIndex = 25;
             label10.Text = "Buscar Gênero:";
             // 
+            // btn_EnviarFilmes
+            // 
+            btn_EnviarFilmes.BackColor = SystemColors.ControlDarkDark;
+            btn_EnviarFilmes.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_EnviarFilmes.ForeColor = SystemColors.ButtonHighlight;
+            btn_EnviarFilmes.Location = new Point(402, 542);
+            btn_EnviarFilmes.Name = "btn_EnviarFilmes";
+            btn_EnviarFilmes.Size = new Size(94, 29);
+            btn_EnviarFilmes.TabIndex = 36;
+            btn_EnviarFilmes.Text = "Enviar";
+            btn_EnviarFilmes.UseVisualStyleBackColor = false;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(23, 522);
+            label11.Name = "label11";
+            label11.Size = new Size(68, 20);
+            label11.TabIndex = 35;
+            label11.Text = "Mostrar:";
+            // 
+            // ckbox_AnoFilme
+            // 
+            ckbox_AnoFilme.AutoSize = true;
+            ckbox_AnoFilme.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_AnoFilme.Location = new Point(32, 545);
+            ckbox_AnoFilme.Name = "ckbox_AnoFilme";
+            ckbox_AnoFilme.Size = new Size(59, 24);
+            ckbox_AnoFilme.TabIndex = 32;
+            ckbox_AnoFilme.Text = "Ano";
+            ckbox_AnoFilme.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_ClassificacaoFilme
+            // 
+            ckbox_ClassificacaoFilme.AutoSize = true;
+            ckbox_ClassificacaoFilme.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_ClassificacaoFilme.Location = new Point(97, 545);
+            ckbox_ClassificacaoFilme.Name = "ckbox_ClassificacaoFilme";
+            ckbox_ClassificacaoFilme.Size = new Size(186, 24);
+            ckbox_ClassificacaoFilme.TabIndex = 33;
+            ckbox_ClassificacaoFilme.Text = "Classificação Indicativa";
+            ckbox_ClassificacaoFilme.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_Genero
+            // 
+            ckbox_Genero.AutoSize = true;
+            ckbox_Genero.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_Genero.Location = new Point(303, 547);
+            ckbox_Genero.Name = "ckbox_Genero";
+            ckbox_Genero.Size = new Size(81, 24);
+            ckbox_Genero.TabIndex = 34;
+            ckbox_Genero.Text = "Genero";
+            ckbox_Genero.UseVisualStyleBackColor = true;
+            // 
             // frm_Filmes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(768, 666);
+            ClientSize = new Size(768, 681);
             Controls.Add(tbctrl_Filmes);
             Controls.Add(ts_Filmes);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frm_Filmes";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Filmes";
             gb_Filmes.ResumeLayout(false);
             gb_Filmes.PerformLayout();
@@ -515,7 +619,7 @@
         #endregion
 
         private GroupBox gb_Filmes;
-        private TextBox textBox13;
+        private TextBox txt_CodFilme;
         private TextBox txt_TituloFilme;
         private Label label16;
         private Label label18;
@@ -547,9 +651,9 @@
         private TabPage tbpg_Filmes;
         private TabPage tbpg_Genero;
         private TextBox txt_GeneroFilme;
-        private ListView listView1;
-        private TextBox textBox1;
-        private Button button1;
+        private ListView ltview_BuscarFilme;
+        private TextBox txt_BuscarFIlme;
+        private Button btn_BuscarFilme;
         private Label label5;
         private ListView ltview_BuscarGeneros;
         private TextBox txt_BuscaGenero;
@@ -557,5 +661,12 @@
         private Label label10;
         private CheckBox ckbox_PesquisarGenero;
         private Button btn_PesquisarCodGenero;
+        private CheckBox ckbox_PesquisarCodFilme;
+        private Button btn_PesquisarCodFilme;
+        private Button btn_EnviarFilmes;
+        private Label label11;
+        private CheckBox ckbox_AnoFilme;
+        private CheckBox ckbox_ClassificacaoFilme;
+        private CheckBox ckbox_Genero;
     }
 }

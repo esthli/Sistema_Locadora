@@ -112,7 +112,7 @@ namespace Sistema_Locadora
             btn_LimparClientes.BackColor = SystemColors.InactiveBorder;
             btn_LimparClientes.ForeColor = SystemColors.ControlDarkDark;
             btn_LimparClientes.Image = (Image)resources.GetObject("btn_LimparClientes.Image");
-            btn_LimparClientes.Location = new Point(628, 29);
+            btn_LimparClientes.Location = new Point(628, 28);
             btn_LimparClientes.Name = "btn_LimparClientes";
             btn_LimparClientes.Size = new Size(32, 29);
             btn_LimparClientes.TabIndex = 26;
@@ -136,10 +136,10 @@ namespace Sistema_Locadora
             // ckbox_CodCliente
             // 
             ckbox_CodCliente.AutoSize = true;
-            ckbox_CodCliente.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ckbox_CodCliente.Location = new Point(210, 32);
+            ckbox_CodCliente.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ckbox_CodCliente.Location = new Point(213, 29);
             ckbox_CodCliente.Name = "ckbox_CodCliente";
-            ckbox_CodCliente.Size = new Size(148, 24);
+            ckbox_CodCliente.Size = new Size(163, 27);
             ckbox_CodCliente.TabIndex = 24;
             ckbox_CodCliente.Text = "Pesquisar Código";
             ckbox_CodCliente.UseVisualStyleBackColor = true;
@@ -451,7 +451,6 @@ namespace Sistema_Locadora
             ltview_BuscarClientes.Size = new Size(686, 250);
             ltview_BuscarClientes.TabIndex = 17;
             ltview_BuscarClientes.UseCompatibleStateImageBehavior = false;
-            //ltview_BuscarClientes.SelectedIndexChanged += this.ltview_BuscarClientes_SelectedIndexChanged;
             // 
             // ckbox_Telefone
             // 
@@ -550,7 +549,9 @@ namespace Sistema_Locadora
             Controls.Add(btn_PesquisarCliente);
             Controls.Add(ts_Clientes);
             Controls.Add(gb_Clientes);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "frm_Clientes";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Clientes";
             gb_Clientes.ResumeLayout(false);
             gb_Clientes.PerformLayout();
