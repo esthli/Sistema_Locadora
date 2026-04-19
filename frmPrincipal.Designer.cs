@@ -34,7 +34,7 @@
             toolStripSeparator1 = new ToolStripSeparator();
             tsbtn_Filmes = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
-            toolStripButton3 = new ToolStripButton();
+            tsbtn_Locacao = new ToolStripButton();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -43,7 +43,7 @@
             // 
             toolStrip1.BackColor = SystemColors.ButtonHighlight;
             toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbtn_Clientes, toolStripSeparator1, tsbtn_Filmes, toolStripSeparator2, toolStripButton3 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbtn_Clientes, toolStripSeparator1, tsbtn_Filmes, toolStripSeparator2, tsbtn_Locacao });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(896, 77);
@@ -80,14 +80,15 @@
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new Size(6, 77);
             // 
-            // toolStripButton3
+            // tsbtn_Locacao
             // 
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(74, 74);
-            toolStripButton3.Text = "Locações";
-            toolStripButton3.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsbtn_Locacao.Image = (Image)resources.GetObject("tsbtn_Locacao.Image");
+            tsbtn_Locacao.ImageTransparentColor = Color.Magenta;
+            tsbtn_Locacao.Name = "tsbtn_Locacao";
+            tsbtn_Locacao.Size = new Size(74, 74);
+            tsbtn_Locacao.Text = "Locações";
+            tsbtn_Locacao.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsbtn_Locacao.Click += tsbtn_Locacao_Click;
             // 
             // frmPrincipal
             // 
@@ -113,7 +114,7 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton tsbtn_Filmes;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton toolStripButton3;
+        private ToolStripButton tsbtn_Locacao;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

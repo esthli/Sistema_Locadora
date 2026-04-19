@@ -66,5 +66,11 @@ namespace Sistema_Locadora
             frm_Filmes filmes = new frm_Filmes();
             filmes.ShowDialog();
         }
+
+        private void tsbtn_Locacao_Click(object sender, EventArgs e)
+        {
+            frm_Locacao locacao = new frm_Locacao();
+            locacao.ShowDialog();
+        }
     }
 }

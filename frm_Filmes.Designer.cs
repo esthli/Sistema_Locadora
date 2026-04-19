@@ -138,6 +138,7 @@
             cbox_GeneroFilme.Name = "cbox_GeneroFilme";
             cbox_GeneroFilme.Size = new Size(170, 31);
             cbox_GeneroFilme.TabIndex = 17;
+            cbox_GeneroFilme.SelectedIndexChanged += cbox_GeneroFilme_SelectedIndexChanged;
             // 
             // cbox_ClassificacaoFilme
             // 
@@ -600,6 +601,7 @@
             Controls.Add(tbctrl_Filmes);
             Controls.Add(ts_Filmes);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frm_Filmes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Filmes";

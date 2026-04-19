@@ -550,6 +550,7 @@ namespace Sistema_Locadora
             Controls.Add(ts_Clientes);
             Controls.Add(gb_Clientes);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frm_Clientes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Clientes";

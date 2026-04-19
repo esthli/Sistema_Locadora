@@ -54,7 +54,7 @@ namespace Sistema_Locadora
         {
             if (tbctrl_Filmes.SelectedTab == tbpg_Filmes)
             {
-                    try
+                try
                 {
                     // Ensure a genre is selected and obtain its id from the bound ValueMember
                     if (cbox_GeneroFilme == null || cbox_GeneroFilme.SelectedValue == null)
@@ -316,6 +316,13 @@ namespace Sistema_Locadora
 
         private void btn_PesquisarCodFilme_Click(object sender, EventArgs e)
         {
+
+
+            if (!int.TryParse(cbox_GeneroFilme.SelectedValue.ToString(), out int id_g))
+            {
+                MessageBox.Show("ID do gênero inválido.");
+                return;
+            }
             if (!int.TryParse(txt_CodFilme.Text, out int id))
             {
                 MessageBox.Show("Informe um ID válido.");
@@ -339,7 +346,7 @@ namespace Sistema_Locadora
                             // Map DB columns to the form controls (adjust names if your DB uses different column names)
                             txt_CodFilme.Text = reader["id_filme"]?.ToString() ?? "";
                             txt_TituloFilme.Text = reader["titulo"]?.ToString() ?? "";
-                            txt_GeneroFilme.Text = reader["id_genero"]?.ToString() ?? "";
+                            cbox_GeneroFilme.Text = reader["id_genero"]?.ToString() ?? "";
                             msktxt_AnoFilme.Text = reader["ano"]?.ToString() ?? "";
                             cbox_ClassificacaoFilme.Text = reader["classificacao_indicativa"]?.ToString() ?? "";
 
@@ -347,7 +354,7 @@ namespace Sistema_Locadora
                         }
                         else
                         {
-                            MessageBox.Show("Gênero não encontrado para o ID informado.");
+                            MessageBox.Show("Filme não encontrado para o ID informado.");
                         }
                     }
                 }
@@ -504,6 +511,11 @@ namespace Sistema_Locadora
             {
                 MessageBox.Show("Falha ao carregar gêneros: " + ex.Message);
             }
+        }
+
+        private void cbox_GeneroFilme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
