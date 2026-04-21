@@ -46,7 +46,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { tsbtn_Clientes, toolStripSeparator1, tsbtn_Filmes, toolStripSeparator2, tsbtn_Locacao });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(896, 77);
+            toolStrip1.Size = new Size(967, 77);
             toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -94,8 +94,11 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(896, 747);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(967, 621);
             Controls.Add(toolStrip1);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmPrincipal";

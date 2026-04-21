@@ -17,5 +17,10 @@ namespace Sistema_Locadora
             InitializeComponent();
 
         }
+
+        private void btn_PesquisarCodCliente_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -33,7 +33,9 @@ namespace Sistema_Locadora
 
             ltview_BuscarGeneros.Columns.Add("ID", 50, HorizontalAlignment.Left);
             ltview_BuscarGeneros.Columns.Add("Gênero", 200, HorizontalAlignment.Left);
+
             // list view Buscar Filmes
+
             ltview_BuscarFilme.View = View.Details;
             ltview_BuscarFilme.LabelEdit = true;
             ltview_BuscarFilme.AllowColumnReorder = true;
@@ -42,8 +44,6 @@ namespace Sistema_Locadora
 
             ltview_BuscarFilme.Columns.Add("ID", 50, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Título", 200, HorizontalAlignment.Left);
-
-            // add optional columns but keep them hidden by default (width = 0)
             ltview_BuscarFilme.Columns.Add("Gênero", 0, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Ano", 0, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Classificação", 0, HorizontalAlignment.Left);
@@ -318,11 +318,11 @@ namespace Sistema_Locadora
         {
 
 
-            if (!int.TryParse(cbox_GeneroFilme.SelectedValue.ToString(), out int id_g))
+           /* if (!int.TryParse(cbox_GeneroFilme.SelectedValue.ToString(), out int id_g))
             {
                 MessageBox.Show("ID do gênero inválido.");
                 return;
-            }
+            } */
             if (!int.TryParse(txt_CodFilme.Text, out int id))
             {
                 MessageBox.Show("Informe um ID válido.");
@@ -398,7 +398,7 @@ namespace Sistema_Locadora
             try
             {
                 Conexao = new MySqlConnection(data_source);
-                string query = "SELECT * FROM Filme " +
+                string query = "SELECT id_filme, titulo, id_genero, ano, classificacao_indicativa FROM Filme " +
                                "WHERE titulo LIKE '%" + txt_TituloFilme.Text + "%'";
 
                 Conexao.Open();
@@ -410,12 +410,13 @@ namespace Sistema_Locadora
                     {
                         string[] row = {
                             Convert.ToString(reader.GetInt32(0)), // id_filme
-                            Convert.ToString(reader.GetInt32(1)), // id_genero
-                            reader.GetString(2), // titulo
-                            reader.GetString(3), // ano
-                            reader.GetString(4), // classificacao_indicativa
-                           
-                        };
+                            reader.GetString(1), // titulo
+                            Convert.ToString(reader.GetInt32(3)), // id_genero
+                            reader.GetString(4), // ano
+                            reader.GetString(5), // classificacao_indicativa
+
+                          };
+
                         var linhalista = new ListViewItem(row);
                         ltview_BuscarFilme.Items.Add(linhalista);
                     }
@@ -482,7 +483,7 @@ namespace Sistema_Locadora
         private void btn_EnviarFilmes_Click_1(object sender, EventArgs e)
         {
             SetColumnVisibility(3, ckbox_AnoFilme.Checked, 110); // Ano column
-            SetColumnVisibility(4, ckbox_Genero.Checked, 150);      // Genero column
+            SetColumnVisibility(2, ckbox_Genero.Checked, 150);      // Genero column
             SetColumnVisibility(5, ckbox_ClassificacaoFilme.Checked, 120);   // Classificacao column
         }
 
