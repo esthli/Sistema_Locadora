@@ -48,6 +48,27 @@ namespace Sistema_Locadora
             ltview_BuscarFilme.Columns.Add("Ano", 0, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Classificação", 0, HorizontalAlignment.Left);
 
+           
+                Conexao = new MySqlConnection(data_source);
+                string query = "SELECT COUNT(id_filme) FROM Filme; ";
+                Conexao.Open();
+
+                MySqlCommand comando = new MySqlCommand(query, Conexao);
+
+                using (MySqlDataReader reader = comando.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        tslbl_Filmes.Text = " de " + reader.GetInt32(0).ToString();
+                    }
+                }
+
+                Conexao.Close();
+           
+               
+            
+            
+
         }
 
         private void tsbtn_addFilme_Click(object sender, EventArgs e)

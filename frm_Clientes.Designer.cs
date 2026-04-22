@@ -56,7 +56,7 @@ namespace Sistema_Locadora
             tsbtn_voltar = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             tstxt_IdCliente = new ToolStripTextBox();
-            toolStripLabel1 = new ToolStripLabel();
+            tslbl_IDcount = new ToolStripLabel();
             toolStripSeparator5 = new ToolStripSeparator();
             tsbtn_frente = new ToolStripButton();
             toolStripButton6 = new ToolStripButton();
@@ -300,7 +300,7 @@ namespace Sistema_Locadora
             // ts_Clientes
             // 
             ts_Clientes.ImageScalingSize = new Size(30, 30);
-            ts_Clientes.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, tstxt_IdCliente, toolStripLabel1, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addCliente, tsbtn_delCliente, tsbtn_saveCliente });
+            ts_Clientes.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, tstxt_IdCliente, tslbl_IDcount, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addCliente, tsbtn_delCliente, tsbtn_saveCliente });
             ts_Clientes.Location = new Point(0, 0);
             ts_Clientes.Name = "ts_Clientes";
             ts_Clientes.Size = new Size(721, 37);
@@ -342,11 +342,13 @@ namespace Sistema_Locadora
             tstxt_IdCliente.Size = new Size(100, 37);
             tstxt_IdCliente.Click += toolStripTextBox1_Click;
             // 
-            // toolStripLabel1
+            // tslbl_IDcount
             // 
-            toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(38, 34);
-            toolStripLabel1.Text = "de n";
+            tslbl_IDcount.Name = "tslbl_IDcount";
+            tslbl_IDcount.Size = new Size(38, 34);
+            tslbl_IDcount.Text = "de n";
+            tslbl_IDcount.Click += toolStripLabel1_Click;
+            tslbl_IDcount.TextChanged += toolStripLabel1_TextChanged;
             // 
             // toolStripSeparator5
             // 
@@ -592,7 +594,7 @@ namespace Sistema_Locadora
         private ToolStripButton tsbtn_voltar;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripTextBox tstxt_IdCliente;
-        private ToolStripLabel toolStripLabel1;
+        private ToolStripLabel tslbl_IDcount;
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton tsbtn_frente;
         private ToolStripButton toolStripButton6;

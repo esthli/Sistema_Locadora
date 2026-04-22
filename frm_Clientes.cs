@@ -18,6 +18,7 @@ namespace Sistema_Locadora
         private MySqlConnection Conexao;
         private string data_source = "datasource=localhost;port=3306;username=root;password=198219;database=Locadora";
 
+
         public frm_Clientes()
         {
             InitializeComponent();
@@ -37,6 +38,22 @@ namespace Sistema_Locadora
             ltview_BuscarClientes.Columns.Add("Bairro", 0, HorizontalAlignment.Left);
             ltview_BuscarClientes.Columns.Add("Cidade", 0, HorizontalAlignment.Left);
             ltview_BuscarClientes.Columns.Add("CEP", 0, HorizontalAlignment.Left);
+
+            Conexao = new MySqlConnection(data_source);
+            string query = "SELECT COUNT(id_cliente) FROM Cliente; ";
+            Conexao.Open();
+
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
+
+            using (MySqlDataReader reader = comando.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    tslbl_IDcount.Text = " de " + reader.GetInt32(0).ToString();
+                }
+            }
+
+            Conexao.Close();
         }
 
         private void tsbtn_addCliente_Click(object sender, EventArgs e)
@@ -58,6 +75,21 @@ namespace Sistema_Locadora
                 MySqlCommand comando = new MySqlCommand(query, Conexao);
                 Conexao.Open();
                 comando.ExecuteNonQuery(); // use ExecuteNonQuery for INSERT
+
+    
+                string pedido = "SELECT COUNT(id_cliente) FROM Cliente; ";
+              
+
+                MySqlCommand manda = new MySqlCommand(pedido, Conexao);
+
+                using (MySqlDataReader reader = manda.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        tslbl_IDcount.Text = " de " + reader.GetInt32(0).ToString();
+                    }
+                }
+
 
                 MessageBox.Show("Cliente cadastrado com sucesso!");
             }
@@ -183,6 +215,18 @@ namespace Sistema_Locadora
                     MessageBox.Show("Exclusão cancelada.");
                 }
 
+                string pedido = "SELECT COUNT(id_cliente) FROM Cliente; ";
+
+
+                MySqlCommand manda = new MySqlCommand(pedido, Conexao);
+
+                using (MySqlDataReader reader = manda.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        tslbl_IDcount.Text = " de " + reader.GetInt32(0).ToString();
+                    }
+                }
 
 
 
@@ -382,6 +426,18 @@ namespace Sistema_Locadora
 
         private void label11_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripLabel1_TextChanged(object sender, EventArgs e)
+        {
+            
+
 
         }
     }
