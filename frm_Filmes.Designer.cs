@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Filmes));
             gb_Filmes = new GroupBox();
+            btn_LimparClientes = new Button();
             ckbox_PesquisarCodFilme = new CheckBox();
             btn_PesquisarCodFilme = new Button();
             cbox_GeneroFilme = new ComboBox();
@@ -60,6 +61,7 @@
             txt_CodGeneroFilme = new TextBox();
             label3 = new Label();
             gb_GeneroFilme = new GroupBox();
+            button1 = new Button();
             ckbox_PesquisarGenero = new CheckBox();
             btn_PesquisarCodGenero = new Button();
             txt_GeneroFilme = new TextBox();
@@ -79,8 +81,6 @@
             txt_BuscaGenero = new TextBox();
             btn_PesquisarGenero = new Button();
             label10 = new Label();
-            btn_LimparClientes = new Button();
-            button1 = new Button();
             gb_Filmes.SuspendLayout();
             ts_Filmes.SuspendLayout();
             gb_GeneroFilme.SuspendLayout();
@@ -110,6 +110,18 @@
             gb_Filmes.Size = new Size(708, 152);
             gb_Filmes.TabIndex = 12;
             gb_Filmes.TabStop = false;
+            // 
+            // btn_LimparClientes
+            // 
+            btn_LimparClientes.BackColor = SystemColors.InactiveBorder;
+            btn_LimparClientes.ForeColor = SystemColors.ControlDarkDark;
+            btn_LimparClientes.Image = (Image)resources.GetObject("btn_LimparClientes.Image");
+            btn_LimparClientes.Location = new Point(664, 25);
+            btn_LimparClientes.Name = "btn_LimparClientes";
+            btn_LimparClientes.Size = new Size(32, 29);
+            btn_LimparClientes.TabIndex = 27;
+            btn_LimparClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn_LimparClientes.UseVisualStyleBackColor = false;
             // 
             // ckbox_PesquisarCodFilme
             // 
@@ -379,6 +391,18 @@
             gb_GeneroFilme.TabIndex = 18;
             gb_GeneroFilme.TabStop = false;
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.InactiveBorder;
+            button1.ForeColor = SystemColors.ControlDarkDark;
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.Location = new Point(665, 26);
+            button1.Name = "button1";
+            button1.Size = new Size(32, 29);
+            button1.TabIndex = 27;
+            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button1.UseVisualStyleBackColor = false;
+            // 
             // ckbox_PesquisarGenero
             // 
             ckbox_PesquisarGenero.AutoSize = true;
@@ -597,30 +621,6 @@
             label10.TabIndex = 25;
             label10.Text = "Buscar Gênero:";
             // 
-            // btn_LimparClientes
-            // 
-            btn_LimparClientes.BackColor = SystemColors.InactiveBorder;
-            btn_LimparClientes.ForeColor = SystemColors.ControlDarkDark;
-            btn_LimparClientes.Image = (Image)resources.GetObject("btn_LimparClientes.Image");
-            btn_LimparClientes.Location = new Point(664, 25);
-            btn_LimparClientes.Name = "btn_LimparClientes";
-            btn_LimparClientes.Size = new Size(32, 29);
-            btn_LimparClientes.TabIndex = 27;
-            btn_LimparClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btn_LimparClientes.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.InactiveBorder;
-            button1.ForeColor = SystemColors.ControlDarkDark;
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(665, 26);
-            button1.Name = "button1";
-            button1.Size = new Size(32, 29);
-            button1.TabIndex = 27;
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = false;
-            // 
             // frm_Filmes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -630,6 +630,7 @@
             Controls.Add(ts_Filmes);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "frm_Filmes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Filmes";

@@ -29,33 +29,33 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPrincipal));
-            toolStrip1 = new ToolStrip();
+            ts_Principal = new ToolStrip();
             tsbtn_Clientes = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             tsbtn_Filmes = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             tsbtn_Locacao = new ToolStripButton();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            toolStrip1.SuspendLayout();
+            ts_Principal.SuspendLayout();
             SuspendLayout();
             // 
-            // toolStrip1
+            // ts_Principal
             // 
-            toolStrip1.BackColor = SystemColors.ButtonHighlight;
-            toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbtn_Clientes, toolStripSeparator1, tsbtn_Filmes, toolStripSeparator2, tsbtn_Locacao });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(967, 77);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStrip1";
+            ts_Principal.BackColor = SystemColors.ButtonHighlight;
+            ts_Principal.ImageScalingSize = new Size(50, 50);
+            ts_Principal.Items.AddRange(new ToolStripItem[] { tsbtn_Clientes, toolStripSeparator1, tsbtn_Filmes, toolStripSeparator2, tsbtn_Locacao });
+            ts_Principal.Location = new Point(0, 0);
+            ts_Principal.Name = "ts_Principal";
+            ts_Principal.Size = new Size(967, 77);
+            ts_Principal.TabIndex = 0;
+            ts_Principal.Text = "toolStrip1";
             // 
             // tsbtn_Clientes
             // 
             tsbtn_Clientes.Image = (Image)resources.GetObject("tsbtn_Clientes.Image");
             tsbtn_Clientes.ImageTransparentColor = Color.Magenta;
             tsbtn_Clientes.Name = "tsbtn_Clientes";
-            tsbtn_Clientes.Size = new Size(65, 74);
+            tsbtn_Clientes.Size = new Size(84, 74);
             tsbtn_Clientes.Text = "Clientes";
             tsbtn_Clientes.TextImageRelation = TextImageRelation.ImageAboveText;
             tsbtn_Clientes.Click += tsbtn_Clientes_Click;
@@ -70,7 +70,7 @@
             tsbtn_Filmes.Image = (Image)resources.GetObject("tsbtn_Filmes.Image");
             tsbtn_Filmes.ImageTransparentColor = Color.Magenta;
             tsbtn_Filmes.Name = "tsbtn_Filmes";
-            tsbtn_Filmes.Size = new Size(55, 74);
+            tsbtn_Filmes.Size = new Size(84, 74);
             tsbtn_Filmes.Text = "Filmes";
             tsbtn_Filmes.TextImageRelation = TextImageRelation.ImageAboveText;
             tsbtn_Filmes.Click += tsbtn_Filmes_Click;
@@ -85,7 +85,7 @@
             tsbtn_Locacao.Image = (Image)resources.GetObject("tsbtn_Locacao.Image");
             tsbtn_Locacao.ImageTransparentColor = Color.Magenta;
             tsbtn_Locacao.Name = "tsbtn_Locacao";
-            tsbtn_Locacao.Size = new Size(74, 74);
+            tsbtn_Locacao.Size = new Size(84, 74);
             tsbtn_Locacao.Text = "Locações";
             tsbtn_Locacao.TextImageRelation = TextImageRelation.ImageAboveText;
             tsbtn_Locacao.Click += tsbtn_Locacao_Click;
@@ -97,22 +97,23 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(967, 621);
-            Controls.Add(toolStrip1);
+            Controls.Add(ts_Principal);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "frmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema Locadora";
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            ts_Principal.ResumeLayout(false);
+            ts_Principal.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ToolStrip toolStrip1;
+        private ToolStrip ts_Principal;
         private ToolStripButton tsbtn_Clientes;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton tsbtn_Filmes;

@@ -477,7 +477,9 @@
             Controls.Add(ltview_BuscarLocacao);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "frm_Locacao";
+            SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Locação";
             gb_Data.ResumeLayout(false);

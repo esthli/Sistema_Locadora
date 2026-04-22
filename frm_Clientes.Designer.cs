@@ -553,6 +553,8 @@ namespace Sistema_Locadora
             Controls.Add(gb_Clientes);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frm_Clientes";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Clientes";
