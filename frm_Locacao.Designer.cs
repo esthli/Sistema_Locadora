@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Locacao));
             gb_Data = new GroupBox();
+            ckbox_DataDevolucaoLocacao = new CheckBox();
             label5 = new Label();
             msktxt_DataDevolucaoLocacao = new MaskedTextBox();
             msktxt_DataPrevistaLocacao = new MaskedTextBox();
@@ -47,7 +48,7 @@
             tsbtn_voltar = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             toolStripTextBox1 = new ToolStripTextBox();
-            toolStripLabel1 = new ToolStripLabel();
+            tslbl_IDCount = new ToolStripLabel();
             toolStripSeparator5 = new ToolStripSeparator();
             tsbtn_frente = new ToolStripButton();
             toolStripButton6 = new ToolStripButton();
@@ -72,6 +73,12 @@
             txt_BuscarLocacao = new TextBox();
             btn_BuscarLocacao = new Button();
             label7 = new Label();
+            btn_EnviarLocacao = new Button();
+            label11 = new Label();
+            ckbox_DataLocacao = new CheckBox();
+            ckbox_PrevisaoLocacao = new CheckBox();
+            ckbox_DevolucaoLocacao = new CheckBox();
+            ckbox_VlrTaxaLocacao = new CheckBox();
             gb_Data.SuspendLayout();
             ts_Locacao.SuspendLayout();
             gb_Filmes.SuspendLayout();
@@ -79,6 +86,7 @@
             // 
             // gb_Data
             // 
+            gb_Data.Controls.Add(ckbox_DataDevolucaoLocacao);
             gb_Data.Controls.Add(label5);
             gb_Data.Controls.Add(msktxt_DataDevolucaoLocacao);
             gb_Data.Controls.Add(msktxt_DataPrevistaLocacao);
@@ -89,10 +97,21 @@
             gb_Data.Font = new Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             gb_Data.Location = new Point(15, 162);
             gb_Data.Name = "gb_Data";
-            gb_Data.Size = new Size(445, 191);
+            gb_Data.Size = new Size(755, 191);
             gb_Data.TabIndex = 14;
             gb_Data.TabStop = false;
             gb_Data.Text = "Datas";
+            // 
+            // ckbox_DataDevolucaoLocacao
+            // 
+            ckbox_DataDevolucaoLocacao.AutoSize = true;
+            ckbox_DataDevolucaoLocacao.Location = new Point(448, 145);
+            ckbox_DataDevolucaoLocacao.Name = "ckbox_DataDevolucaoLocacao";
+            ckbox_DataDevolucaoLocacao.Size = new Size(243, 28);
+            ckbox_DataDevolucaoLocacao.TabIndex = 37;
+            ckbox_DataDevolucaoLocacao.Text = "Adicionar Data da Devolução";
+            ckbox_DataDevolucaoLocacao.UseVisualStyleBackColor = true;
+            ckbox_DataDevolucaoLocacao.CheckedChanged += ckbox_DataDevolucaoLocacao_CheckedChanged;
             // 
             // label5
             // 
@@ -165,7 +184,7 @@
             // 
             txt_ValorMultaLocacao.Location = new Point(653, 106);
             txt_ValorMultaLocacao.Name = "txt_ValorMultaLocacao";
-            txt_ValorMultaLocacao.Size = new Size(125, 27);
+            txt_ValorMultaLocacao.Size = new Size(117, 27);
             txt_ValorMultaLocacao.TabIndex = 13;
             // 
             // ltview_BuscarLocacao
@@ -185,7 +204,7 @@
             // ts_Locacao
             // 
             ts_Locacao.ImageScalingSize = new Size(30, 30);
-            ts_Locacao.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, toolStripTextBox1, toolStripLabel1, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addLocacao, tsbtn_delLocacao, tsbtn_saveLocacao });
+            ts_Locacao.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, toolStripTextBox1, tslbl_IDCount, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addLocacao, tsbtn_delLocacao, tsbtn_saveLocacao });
             ts_Locacao.Location = new Point(0, 0);
             ts_Locacao.Name = "ts_Locacao";
             ts_Locacao.Size = new Size(808, 37);
@@ -226,11 +245,11 @@
             toolStripTextBox1.ReadOnly = true;
             toolStripTextBox1.Size = new Size(100, 37);
             // 
-            // toolStripLabel1
+            // tslbl_IDCount
             // 
-            toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(38, 34);
-            toolStripLabel1.Text = "de n";
+            tslbl_IDCount.Name = "tslbl_IDCount";
+            tslbl_IDCount.Size = new Size(38, 34);
+            tslbl_IDCount.Text = "de n";
             // 
             // toolStripSeparator5
             // 
@@ -268,6 +287,7 @@
             tsbtn_addLocacao.Name = "tsbtn_addLocacao";
             tsbtn_addLocacao.Size = new Size(34, 34);
             tsbtn_addLocacao.Text = "Adicionar";
+            tsbtn_addLocacao.Click += tsbtn_addLocacao_Click;
             // 
             // tsbtn_delLocacao
             // 
@@ -277,6 +297,7 @@
             tsbtn_delLocacao.Name = "tsbtn_delLocacao";
             tsbtn_delLocacao.Size = new Size(34, 34);
             tsbtn_delLocacao.Text = "Deletar";
+            tsbtn_delLocacao.Click += tsbtn_delLocacao_Click;
             // 
             // tsbtn_saveLocacao
             // 
@@ -316,12 +337,13 @@
             btn_LimparClientes.BackColor = SystemColors.InactiveBorder;
             btn_LimparClientes.ForeColor = SystemColors.ControlDarkDark;
             btn_LimparClientes.Image = (Image)resources.GetObject("btn_LimparClientes.Image");
-            btn_LimparClientes.Location = new Point(746, 26);
+            btn_LimparClientes.Location = new Point(738, 26);
             btn_LimparClientes.Name = "btn_LimparClientes";
             btn_LimparClientes.Size = new Size(32, 29);
             btn_LimparClientes.TabIndex = 38;
             btn_LimparClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_LimparClientes.UseVisualStyleBackColor = false;
+            btn_LimparClientes.Click += btn_LimparClientes_Click;
             // 
             // label8
             // 
@@ -347,7 +369,7 @@
             // 
             txt_PrecoLocacao.Location = new Point(635, 66);
             txt_PrecoLocacao.Name = "txt_PrecoLocacao";
-            txt_PrecoLocacao.Size = new Size(143, 27);
+            txt_PrecoLocacao.Size = new Size(135, 27);
             txt_PrecoLocacao.TabIndex = 35;
             // 
             // label4
@@ -360,6 +382,7 @@
             // 
             // cbox_ClientesLocacao
             // 
+            cbox_ClientesLocacao.DropDownStyle = ComboBoxStyle.DropDownList;
             cbox_ClientesLocacao.FormattingEnabled = true;
             cbox_ClientesLocacao.Location = new Point(97, 66);
             cbox_ClientesLocacao.Name = "cbox_ClientesLocacao";
@@ -368,6 +391,7 @@
             // 
             // cbox_FilmeLocacao
             // 
+            cbox_FilmeLocacao.DropDownStyle = ComboBoxStyle.DropDownList;
             cbox_FilmeLocacao.FormattingEnabled = true;
             cbox_FilmeLocacao.Location = new Point(97, 106);
             cbox_FilmeLocacao.Name = "cbox_FilmeLocacao";
@@ -394,6 +418,7 @@
             btn_PesquisarCodLocacao.Size = new Size(33, 29);
             btn_PesquisarCodLocacao.TabIndex = 30;
             btn_PesquisarCodLocacao.UseVisualStyleBackColor = true;
+            btn_PesquisarCodLocacao.Click += btn_PesquisarCodLocacao_Click;
             // 
             // label01
             // 
@@ -453,6 +478,7 @@
             btn_BuscarLocacao.Text = "Pesquisar";
             btn_BuscarLocacao.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_BuscarLocacao.UseVisualStyleBackColor = false;
+            btn_BuscarLocacao.Click += btn_BuscarLocacao_Click;
             // 
             // label7
             // 
@@ -460,15 +486,89 @@
             label7.Font = new Font("Lucida Bright", 10.8F, FontStyle.Bold);
             label7.Location = new Point(12, 438);
             label7.Name = "label7";
-            label7.Size = new Size(157, 20);
+            label7.Size = new Size(363, 20);
             label7.TabIndex = 28;
-            label7.Text = "Buscar Locação:";
+            label7.Text = "Buscar Locação pelo nome do Cliente:";
+            // 
+            // btn_EnviarLocacao
+            // 
+            btn_EnviarLocacao.BackColor = SystemColors.ControlDarkDark;
+            btn_EnviarLocacao.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_EnviarLocacao.ForeColor = SystemColors.ButtonHighlight;
+            btn_EnviarLocacao.Location = new Point(702, 851);
+            btn_EnviarLocacao.Name = "btn_EnviarLocacao";
+            btn_EnviarLocacao.Size = new Size(94, 29);
+            btn_EnviarLocacao.TabIndex = 40;
+            btn_EnviarLocacao.Text = "Enviar";
+            btn_EnviarLocacao.UseVisualStyleBackColor = false;
+            btn_EnviarLocacao.Click += btn_EnviarLocacao_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(12, 831);
+            label11.Name = "label11";
+            label11.Size = new Size(68, 20);
+            label11.TabIndex = 39;
+            label11.Text = "Mostrar:";
+            // 
+            // ckbox_DataLocacao
+            // 
+            ckbox_DataLocacao.AutoSize = true;
+            ckbox_DataLocacao.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_DataLocacao.Location = new Point(21, 854);
+            ckbox_DataLocacao.Name = "ckbox_DataLocacao";
+            ckbox_DataLocacao.Size = new Size(143, 24);
+            ckbox_DataLocacao.TabIndex = 37;
+            ckbox_DataLocacao.Text = "Data da Locação";
+            ckbox_DataLocacao.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_PrevisaoLocacao
+            // 
+            ckbox_PrevisaoLocacao.AutoSize = true;
+            ckbox_PrevisaoLocacao.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_PrevisaoLocacao.Location = new Point(170, 854);
+            ckbox_PrevisaoLocacao.Name = "ckbox_PrevisaoLocacao";
+            ckbox_PrevisaoLocacao.Size = new Size(219, 24);
+            ckbox_PrevisaoLocacao.TabIndex = 38;
+            ckbox_PrevisaoLocacao.Text = "Data Prevista da Devolução";
+            ckbox_PrevisaoLocacao.UseVisualStyleBackColor = true;
+            ckbox_PrevisaoLocacao.CheckedChanged += ckbox_ClassificacaoFilme_CheckedChanged;
+            // 
+            // ckbox_DevolucaoLocacao
+            // 
+            ckbox_DevolucaoLocacao.AutoSize = true;
+            ckbox_DevolucaoLocacao.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_DevolucaoLocacao.Location = new Point(395, 854);
+            ckbox_DevolucaoLocacao.Name = "ckbox_DevolucaoLocacao";
+            ckbox_DevolucaoLocacao.Size = new Size(161, 24);
+            ckbox_DevolucaoLocacao.TabIndex = 41;
+            ckbox_DevolucaoLocacao.Text = "Data da Devolução";
+            ckbox_DevolucaoLocacao.UseVisualStyleBackColor = true;
+            // 
+            // ckbox_VlrTaxaLocacao
+            // 
+            ckbox_VlrTaxaLocacao.AutoSize = true;
+            ckbox_VlrTaxaLocacao.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            ckbox_VlrTaxaLocacao.Location = new Point(557, 854);
+            ckbox_VlrTaxaLocacao.Name = "ckbox_VlrTaxaLocacao";
+            ckbox_VlrTaxaLocacao.Size = new Size(123, 24);
+            ckbox_VlrTaxaLocacao.TabIndex = 42;
+            ckbox_VlrTaxaLocacao.Text = "Valor da Taxa";
+            ckbox_VlrTaxaLocacao.UseVisualStyleBackColor = true;
             // 
             // frm_Locacao
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(808, 835);
+            ClientSize = new Size(808, 892);
+            Controls.Add(ckbox_VlrTaxaLocacao);
+            Controls.Add(ckbox_DevolucaoLocacao);
+            Controls.Add(btn_EnviarLocacao);
+            Controls.Add(label11);
+            Controls.Add(ckbox_DataLocacao);
+            Controls.Add(ckbox_PrevisaoLocacao);
             Controls.Add(txt_BuscarLocacao);
             Controls.Add(btn_BuscarLocacao);
             Controls.Add(label7);
@@ -506,7 +606,7 @@
         private ToolStripButton tsbtn_voltar;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripTextBox toolStripTextBox1;
-        private ToolStripLabel toolStripLabel1;
+        private ToolStripLabel tslbl_IDCount;
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton tsbtn_frente;
         private ToolStripButton toolStripButton6;
@@ -535,5 +635,12 @@
         private TextBox txt_BuscarLocacao;
         private Button btn_BuscarLocacao;
         private Label label7;
+        private CheckBox ckbox_DataDevolucaoLocacao;
+        private Button btn_EnviarLocacao;
+        private Label label11;
+        private CheckBox ckbox_DataLocacao;
+        private CheckBox ckbox_PrevisaoLocacao;
+        private CheckBox ckbox_DevolucaoLocacao;
+        private CheckBox ckbox_VlrTaxaLocacao;
     }
 }

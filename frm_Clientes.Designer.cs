@@ -303,7 +303,7 @@ namespace Sistema_Locadora
             ts_Clientes.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tsbtn_inicio, tsbtn_voltar, toolStripSeparator4, tstxt_IdCliente, tslbl_IDcount, toolStripSeparator5, tsbtn_frente, toolStripButton6, toolStripSeparator6, tsbtn_addCliente, tsbtn_delCliente, tsbtn_saveCliente });
             ts_Clientes.Location = new Point(0, 0);
             ts_Clientes.Name = "ts_Clientes";
-            ts_Clientes.Size = new Size(721, 37);
+            ts_Clientes.Size = new Size(713, 37);
             ts_Clientes.TabIndex = 12;
             ts_Clientes.Text = "toolStrip2";
             // 
@@ -537,7 +537,7 @@ namespace Sistema_Locadora
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(721, 679);
+            ClientSize = new Size(713, 679);
             Controls.Add(btn_EnviarClientes);
             Controls.Add(label11);
             Controls.Add(ckbox_CEP);

@@ -201,7 +201,7 @@ namespace Sistema_Locadora
 
                 Conexao.Open();
 
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+               // MessageBoxButtons buttons = MessageBoxButtons.YesNo;
 
                 if (MessageBox.Show("Tem certeza que deseja deletar este cliente? id = " + txt_codCliente.Text, "Confirmação de exclusão", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -415,6 +415,7 @@ namespace Sistema_Locadora
             txt_Bairro.Clear();
             txt_Cidade.Clear();
             msktxt_CEP.Clear();
+            ckbox_CodCliente.Checked = false;
 
         }
 

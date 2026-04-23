@@ -71,7 +71,6 @@
             label11 = new Label();
             ckbox_AnoFilme = new CheckBox();
             ckbox_ClassificacaoFilme = new CheckBox();
-            ckbox_Genero = new CheckBox();
             ltview_BuscarFilme = new ListView();
             txt_BuscarFIlme = new TextBox();
             btn_BuscarFilme = new Button();
@@ -122,6 +121,7 @@
             btn_LimparClientes.TabIndex = 27;
             btn_LimparClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_LimparClientes.UseVisualStyleBackColor = false;
+            btn_LimparClientes.Click += btn_LimparClientes_Click;
             // 
             // ckbox_PesquisarCodFilme
             // 
@@ -450,7 +450,6 @@
             tbpg_Filmes.Controls.Add(label11);
             tbpg_Filmes.Controls.Add(ckbox_AnoFilme);
             tbpg_Filmes.Controls.Add(ckbox_ClassificacaoFilme);
-            tbpg_Filmes.Controls.Add(ckbox_Genero);
             tbpg_Filmes.Controls.Add(gb_Filmes);
             tbpg_Filmes.Controls.Add(ltview_BuscarFilme);
             tbpg_Filmes.Controls.Add(txt_BuscarFIlme);
@@ -469,7 +468,7 @@
             btn_EnviarFilmes.BackColor = SystemColors.ControlDarkDark;
             btn_EnviarFilmes.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_EnviarFilmes.ForeColor = SystemColors.ButtonHighlight;
-            btn_EnviarFilmes.Location = new Point(402, 542);
+            btn_EnviarFilmes.Location = new Point(301, 542);
             btn_EnviarFilmes.Name = "btn_EnviarFilmes";
             btn_EnviarFilmes.Size = new Size(94, 29);
             btn_EnviarFilmes.TabIndex = 36;
@@ -486,6 +485,7 @@
             label11.Size = new Size(68, 20);
             label11.TabIndex = 35;
             label11.Text = "Mostrar:";
+           // label11.Click += this.label11_Click;
             // 
             // ckbox_AnoFilme
             // 
@@ -497,6 +497,7 @@
             ckbox_AnoFilme.TabIndex = 32;
             ckbox_AnoFilme.Text = "Ano";
             ckbox_AnoFilme.UseVisualStyleBackColor = true;
+           // ckbox_AnoFilme.CheckedChanged += this.ckbox_AnoFilme_CheckedChanged;
             // 
             // ckbox_ClassificacaoFilme
             // 
@@ -508,17 +509,7 @@
             ckbox_ClassificacaoFilme.TabIndex = 33;
             ckbox_ClassificacaoFilme.Text = "Classificação Indicativa";
             ckbox_ClassificacaoFilme.UseVisualStyleBackColor = true;
-            // 
-            // ckbox_Genero
-            // 
-            ckbox_Genero.AutoSize = true;
-            ckbox_Genero.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            ckbox_Genero.Location = new Point(289, 545);
-            ckbox_Genero.Name = "ckbox_Genero";
-            ckbox_Genero.Size = new Size(81, 24);
-            ckbox_Genero.TabIndex = 34;
-            ckbox_Genero.Text = "Genero";
-            ckbox_Genero.UseVisualStyleBackColor = true;
+            ckbox_ClassificacaoFilme.CheckedChanged += ckbox_ClassificacaoFilme_CheckedChanged;
             // 
             // ltview_BuscarFilme
             // 
@@ -700,7 +691,6 @@
         private Label label11;
         private CheckBox ckbox_AnoFilme;
         private CheckBox ckbox_ClassificacaoFilme;
-        private CheckBox ckbox_Genero;
         private Button btn_LimparClientes;
         private Button button1;
     }

@@ -44,31 +44,27 @@ namespace Sistema_Locadora
 
             ltview_BuscarFilme.Columns.Add("ID", 50, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Título", 200, HorizontalAlignment.Left);
-            ltview_BuscarFilme.Columns.Add("Gênero", 0, HorizontalAlignment.Left);
+            ltview_BuscarFilme.Columns.Add("ID_Gênero", 0, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Ano", 0, HorizontalAlignment.Left);
             ltview_BuscarFilme.Columns.Add("Classificação", 0, HorizontalAlignment.Left);
+            ltview_BuscarFilme.Columns.Add("Gênero", 150, HorizontalAlignment.Left);
 
-           
-                Conexao = new MySqlConnection(data_source);
-                string query = "SELECT COUNT(id_filme) FROM Filme; ";
-                Conexao.Open();
 
-                MySqlCommand comando = new MySqlCommand(query, Conexao);
+            Conexao = new MySqlConnection(data_source);
+            string query = "SELECT COUNT(id_filme) FROM Filme; ";
+            Conexao.Open();
 
-                using (MySqlDataReader reader = comando.ExecuteReader())
+            MySqlCommand comando = new MySqlCommand(query, Conexao);
+
+            using (MySqlDataReader reader = comando.ExecuteReader())
+            {
+                if (reader.Read())
                 {
-                    if (reader.Read())
-                    {
-                        tslbl_Filmes.Text = " de " + reader.GetInt32(0).ToString();
-                    }
+                    tslbl_Filmes.Text = " de " + reader.GetInt32(0).ToString();
                 }
+            }
 
-                Conexao.Close();
-           
-               
-            
-            
-
+            Conexao.Close();
         }
 
         private void tsbtn_addFilme_Click(object sender, EventArgs e)
@@ -105,6 +101,16 @@ namespace Sistema_Locadora
                     comando.ExecuteNonQuery(); // use ExecuteNonQuery for INSERT
 
                     MessageBox.Show("Filme cadastrado com sucesso!");
+
+                    Conexao = new MySqlConnection(data_source);
+
+                    string pedido = "Select COUNT(id_filme) FROM Filme";
+
+                    Conexao.Open();
+                    MySqlCommand command = new MySqlCommand(pedido, Conexao);
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+
+                    tslbl_Filmes.Text = $" de {count}";
                 }
                 catch (Exception ex)
                 {
@@ -138,6 +144,15 @@ namespace Sistema_Locadora
                     comando.ExecuteNonQuery(); // use ExecuteNonQuery for INSERT
 
                     MessageBox.Show("Gênero adicionado com sucesso!");
+
+                    Conexao = new MySqlConnection(data_source);
+                    string pedido = "SELECT COUNT(id_genero) FROM Genero";
+                    Conexao.Open();
+                    MySqlCommand command = new MySqlCommand(pedido, Conexao);
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    Conexao.Close();
+                    tslbl_Filmes.Text = $" de {count}";
+
                 }
                 catch (Exception ex)
                 {
@@ -161,17 +176,84 @@ namespace Sistema_Locadora
 
         private void tbctrl_Filmes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (tbctrl_Filmes.SelectedTab == tbpg_Genero)
+            {
+                Conexao = new MySqlConnection(data_source);
+                string query = "SELECT COUNT(id_genero) FROM Genero";
+                Conexao.Open();
+                MySqlCommand command = new MySqlCommand(query, Conexao);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                Conexao.Close();
+                tslbl_Filmes.Text = $" de {count}";
+            }
+            else if (tbctrl_Filmes.SelectedTab == tbpg_Filmes)
+            {
+                Conexao = new MySqlConnection(data_source);
+                string query = "SELECT COUNT(id_filme) FROM Filme";
+                Conexao.Open();
+                MySqlCommand command = new MySqlCommand(query, Conexao);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                Conexao.Close();
+                tslbl_Filmes.Text = $" de {count}";
+            }
         }
 
         private void tsbtn_delFilme_Click(object sender, EventArgs e)
         {
-
-
-
             if (tbctrl_Filmes.SelectedTab == tbpg_Filmes)
             {
-                MessageBox.Show("Funcionalidade em desenvolvimento.");
+                // validate id first
+                if (!int.TryParse(txt_CodFilme.Text?.Trim(), out int idToDelete))
+                {
+                    MessageBox.Show("Informe um ID válido para exclusão.");
+                    return;
+                }
+
+                var buttons = MessageBoxButtons.YesNo;
+                if (MessageBox.Show("Tem Certeza que deseja deletar este filme? ID do filme a ser deletado: " + idToDelete, "Confirmação de exclusão", buttons) != DialogResult.Yes)
+                {
+                    MessageBox.Show("Exclusão cancelada.");
+                    return;
+                }
+
+                try
+                {
+                    // Use a single connection and parameterized queries; dispose with using
+                    using (var conn = new MySqlConnection(data_source))
+                    {
+                        conn.Open();
+
+                        using (var delCmd = new MySqlCommand("DELETE FROM Filme WHERE id_filme = @id", conn))
+                        {
+                            delCmd.Parameters.AddWithValue("@id", idToDelete);
+                            int rowsAffected = delCmd.ExecuteNonQuery();
+                            if (rowsAffected > 0)
+                                MessageBox.Show("Filme deletado com sucesso!");
+                            else
+                                MessageBox.Show("Nenhum filme encontrado com o ID informado.");
+                        }
+
+                        // update count using same open connection
+                        using (var countCmd = new MySqlCommand("SELECT COUNT(id_filme) FROM Filme", conn))
+                        {
+                            int count = Convert.ToInt32(countCmd.ExecuteScalar());
+                            tslbl_Filmes.Text = $" de {count}";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // show concrete error to help debugging instead of generic ID message
+                    MessageBox.Show("Ocorreu um erro ao tentar deletar: " + ex.Message);
+                }
+                finally
+                {
+                    txt_CodFilme.Clear();
+                    txt_TituloFilme.Clear();
+                    msktxt_AnoFilme.Clear();
+                    cbox_ClassificacaoFilme.SelectedIndex = -1;
+                    cbox_GeneroFilme.SelectedIndex = -1;
+                }
             }
             else if (tbctrl_Filmes.SelectedTab == tbpg_Genero)
             {
@@ -202,6 +284,13 @@ namespace Sistema_Locadora
                         MessageBox.Show("Exclusão cancelada.");
                     }
 
+                    Conexao = new MySqlConnection(data_source);
+                    string pedido = "SELECT COUNT(id_genero) FROM Genero";
+                    Conexao.Open();
+                    MySqlCommand command = new MySqlCommand(pedido, Conexao);
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    Conexao.Close();
+                    tslbl_Filmes.Text = $" de {count}";
 
                 }
                 catch (Exception ex)
@@ -315,7 +404,6 @@ namespace Sistema_Locadora
                             txt_GeneroFilme.Text = reader["nome_genero"]?.ToString() ?? "";
 
 
-
                         }
                         else
                         {
@@ -337,13 +425,6 @@ namespace Sistema_Locadora
 
         private void btn_PesquisarCodFilme_Click(object sender, EventArgs e)
         {
-
-
-           /* if (!int.TryParse(cbox_GeneroFilme.SelectedValue.ToString(), out int id_g))
-            {
-                MessageBox.Show("ID do gênero inválido.");
-                return;
-            } */
             if (!int.TryParse(txt_CodFilme.Text, out int id))
             {
                 MessageBox.Show("Informe um ID válido.");
@@ -353,9 +434,8 @@ namespace Sistema_Locadora
             {
                 using (Conexao = new MySqlConnection(data_source))
                 using (var comando = new MySqlCommand(
-                    "SELECT * FROM Filme WHERE id_filme = @id",
+                    "SELECT id_filme, titulo, id_genero, ano, classificacao_indicativa FROM Filme WHERE id_filme = @id",
                     Conexao))
-
                 {
                     comando.Parameters.AddWithValue("@id", id);
                     Conexao.Open();
@@ -367,11 +447,29 @@ namespace Sistema_Locadora
                             // Map DB columns to the form controls (adjust names if your DB uses different column names)
                             txt_CodFilme.Text = reader["id_filme"]?.ToString() ?? "";
                             txt_TituloFilme.Text = reader["titulo"]?.ToString() ?? "";
-                            cbox_GeneroFilme.Text = reader["id_genero"]?.ToString() ?? "";
+
+                            // convert id_genero to corresponding nome_genero in the ComboBox
+                            var idGeneroObj = reader["id_genero"];
+                            if (idGeneroObj != DBNull.Value && int.TryParse(idGeneroObj.ToString(), out int id_g))
+                            {
+                                // make sure genres are loaded so SelectedValue works
+                                if (cbox_GeneroFilme != null && cbox_GeneroFilme.DataSource == null)
+                                    LoadGeneros();
+
+                                if (cbox_GeneroFilme != null)
+                                {
+                                    // set SelectedValue to the id so the combobox shows the nome_genero
+                                    cbox_GeneroFilme.SelectedValue = id_g;
+                                }
+                            }
+                            else
+                            {
+                                if (cbox_GeneroFilme != null)
+                                    cbox_GeneroFilme.SelectedIndex = -1;
+                            }
+
                             msktxt_AnoFilme.Text = reader["ano"]?.ToString() ?? "";
                             cbox_ClassificacaoFilme.Text = reader["classificacao_indicativa"]?.ToString() ?? "";
-
-
                         }
                         else
                         {
@@ -394,6 +492,7 @@ namespace Sistema_Locadora
         {
             if (ckbox_PesquisarCodFilme.Checked)
             {
+
                 txt_CodFilme.Enabled = true;
                 btn_PesquisarCodFilme.Enabled = true;
 
@@ -404,6 +503,7 @@ namespace Sistema_Locadora
             }
             else
             {
+
                 txt_CodFilme.Enabled = false;
                 btn_PesquisarCodFilme.Enabled = false;
 
@@ -419,8 +519,9 @@ namespace Sistema_Locadora
             try
             {
                 Conexao = new MySqlConnection(data_source);
-                string query = "SELECT id_filme, titulo, id_genero, ano, classificacao_indicativa FROM Filme " +
-                               "WHERE titulo LIKE '%" + txt_TituloFilme.Text + "%'";
+                string query = "SELECT id_filme, titulo, Filme.id_genero, ano, classificacao_indicativa, nome_genero FROM Filme " +
+                    "JOIN Genero ON Filme.id_genero = Genero.id_genero " +
+                               "WHERE titulo LIKE '%" + txt_BuscarFIlme.Text + "%'";
 
                 Conexao.Open();
                 MySqlCommand comando = new MySqlCommand(query, Conexao);
@@ -429,12 +530,14 @@ namespace Sistema_Locadora
                     ltview_BuscarFilme.Items.Clear();
                     while (reader.Read())
                     {
+
                         string[] row = {
                             Convert.ToString(reader.GetInt32(0)), // id_filme
                             reader.GetString(1), // titulo
-                            Convert.ToString(reader.GetInt32(3)), // id_genero
-                            reader.GetString(4), // ano
-                            reader.GetString(5), // classificacao_indicativa
+                            Convert.ToString(reader.GetInt32(2)), // id_genero
+                            Convert.ToString(reader.GetInt32(3)), // ano
+                            reader.GetString(4), //  classificacao_indicativa
+                            reader.GetString(5), // nome_genero
 
                           };
 
@@ -442,6 +545,8 @@ namespace Sistema_Locadora
                         ltview_BuscarFilme.Items.Add(linhalista);
                     }
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -451,6 +556,7 @@ namespace Sistema_Locadora
             {
                 if (Conexao != null && Conexao.State == ConnectionState.Open)
                     Conexao.Close();
+                txt_BuscarFIlme.Clear();
             }
         }
         private void SetColumnVisibility(int index, bool visible, int width)
@@ -463,7 +569,35 @@ namespace Sistema_Locadora
         {
             if (tbctrl_Filmes.SelectedTab == tbpg_Filmes)
             {
-                MessageBox.Show("Funcionalidade em desenvolvimento.");
+                try
+                {
+                    Conexao = new MySqlConnection(data_source);
+                    string query = "UPDATE Filme " +
+                        "SET titulo = '" + txt_TituloFilme.Text + "'," +
+                        "ano = '" + msktxt_AnoFilme.Text + "'," +
+                        "classificacao_indicativa = '" + cbox_ClassificacaoFilme.SelectedItem + "'," +
+                        "id_genero = '" + cbox_GeneroFilme.SelectedValue + "'" +
+                        "WHERE id_filme = " + Convert.ToInt32(txt_CodFilme.Text);
+
+                    MySqlCommand comando = new MySqlCommand(query, Conexao);
+                    Conexao.Open();
+                    comando.ExecuteNonQuery(); // use ExecuteNonQuery for UPDATE
+                    MessageBox.Show("Filme atualizado com sucesso!");
+                }
+                catch
+                {
+                    MessageBox.Show("Informe um ID válido para atualização.");
+                }
+                finally
+                {
+                    if (Conexao != null && Conexao.State == ConnectionState.Open)
+                        Conexao.Close();
+                    txt_CodFilme.Clear();
+                    txt_TituloFilme.Clear();
+                    msktxt_AnoFilme.Clear();
+                    cbox_ClassificacaoFilme.SelectedIndex = -1;
+                    cbox_GeneroFilme.SelectedIndex = -1;
+                }
             }
             else if (tbctrl_Filmes.SelectedTab == tbpg_Genero)
             {
@@ -504,8 +638,7 @@ namespace Sistema_Locadora
         private void btn_EnviarFilmes_Click_1(object sender, EventArgs e)
         {
             SetColumnVisibility(3, ckbox_AnoFilme.Checked, 110); // Ano column
-            SetColumnVisibility(2, ckbox_Genero.Checked, 150);      // Genero column
-            SetColumnVisibility(5, ckbox_ClassificacaoFilme.Checked, 120);   // Classificacao column
+            SetColumnVisibility(4, ckbox_ClassificacaoFilme.Checked, 150);      // Classificacao column
         }
 
         // Loads genres from database into cbox_GeneroFilme
@@ -536,6 +669,20 @@ namespace Sistema_Locadora
         }
 
         private void cbox_GeneroFilme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_LimparClientes_Click(object sender, EventArgs e)
+        {
+            cbox_ClassificacaoFilme.SelectedIndex = -1;
+            cbox_GeneroFilme.SelectedIndex = -1;
+            txt_TituloFilme.Clear();
+            msktxt_AnoFilme.Clear();
+            ckbox_PesquisarCodFilme.Checked = false;
+        }
+
+        private void ckbox_ClassificacaoFilme_CheckedChanged(object sender, EventArgs e)
         {
 
         }
