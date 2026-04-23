@@ -239,6 +239,8 @@ namespace Sistema_Locadora
                 cbox_ClientesLocacao.SelectedIndex = -1;
                 cbox_FilmeLocacao.SelectedIndex = -1;
 
+                msktxt_DataLocacao.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
             }
         }
 
@@ -406,13 +408,14 @@ namespace Sistema_Locadora
                     Conexao.Open();
                     comando.ExecuteNonQuery();
                     MessageBox.Show("Locação deletada com sucesso!");
-                    
-                    MySqlCommand command = new MySqlCommand(query, Conexao);
+
+                    string pedido = "Select COUNT(id_locacao) FROM Locacao";
+                    MySqlCommand command = new MySqlCommand(pedido, Conexao);
                     int count = Convert.ToInt32(command.ExecuteScalar());
 
                     tslbl_IDCount.Text = $" de {count}";
 
-                    
+
                 }
                 else
                 {
@@ -429,6 +432,52 @@ namespace Sistema_Locadora
             {
                 if (Conexao != null && Conexao.State == ConnectionState.Open)
                     Conexao.Close();
+
+                txt_CodLocacao.Clear();
+                msktxt_DataLocacao.Clear();
+                msktxt_DataPrevistaLocacao.Clear();
+                msktxt_DataDevolucaoLocacao.Clear();
+                txt_PrecoLocacao.Clear();
+                txt_ValorMultaLocacao.Clear();
+                cbox_ClientesLocacao.SelectedIndex = -1;
+                cbox_FilmeLocacao.SelectedIndex = -1;
+
+            }
+        }
+
+        private void tsbtn_saveLocacao_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Conexao = new MySqlConnection(data_source);
+                string query = "UPDATE Locacao SET " +
+                               "data_prevista_devolucao = '"+ msktxt_DataPrevistaLocacao.Text+"', data_devolucao = '"+msktxt_DataLocacao.Text+"', valor_multa = "+Convert.ToDecimal(txt_ValorMultaLocacao.Text)+", preco = " + Convert.ToDecimal(txt_PrecoLocacao.Text) +
+                               " WHERE id_locacao = " + Convert.ToInt32(txt_CodLocacao.Text);
+                Conexao.Open();
+                MySqlCommand comando = new MySqlCommand(query, Conexao);
+        
+                comando.ExecuteNonQuery();
+                MessageBox.Show("Locação atualizada com sucesso!");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                if (Conexao != null && Conexao.State == ConnectionState.Open)
+                    Conexao.Close(); 
+                txt_CodLocacao.Clear();
+                msktxt_DataLocacao.Clear();
+                msktxt_DataPrevistaLocacao.Clear();
+                msktxt_DataDevolucaoLocacao.Clear();
+                txt_PrecoLocacao.Clear();
+                txt_ValorMultaLocacao.Clear();
+                cbox_ClientesLocacao.SelectedIndex = -1;
+                cbox_FilmeLocacao.SelectedIndex = -1;
+
+
             }
         }
     }

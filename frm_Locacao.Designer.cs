@@ -307,6 +307,7 @@
             tsbtn_saveLocacao.Name = "tsbtn_saveLocacao";
             tsbtn_saveLocacao.Size = new Size(34, 34);
             tsbtn_saveLocacao.Text = "Salvar";
+            tsbtn_saveLocacao.Click += tsbtn_saveLocacao_Click;
             // 
             // gb_Filmes
             // 
